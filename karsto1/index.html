@@ -7,702 +7,702 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
- :root{
- --navy:#003375;
- --navy-deep:#001c40;
- --navy-soft:#0f4694;
- --ink:#171c26;
- --muted:#5b6577;
- --paper:#f2f3f7;
- --white:#ffffff;
- --line:#dfe2e9;
- --line-strong:#c7ccd8;
- --steel:#8b96ab;
- --ok:#1c7a4a;
- --maxw:1240px;
- }
- *{box-sizing:border-box;}
- html{scroll-behavior:smooth;}
- body{
- margin:0;
- font-family:'Inter',sans-serif;
- color:var(--ink);
- background:var(--white);
- -webkit-font-smoothing:antialiased;
- }
- img{max-width:100%;display:block;}
- a{color:inherit;text-decoration:none;}
- ul{margin:0;padding:0;list-style:none;}
- button{font-family:inherit;cursor:pointer;}
- .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px;}
- h1,h2,h3,h4{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:0.01em;margin:0;color:var(--navy-deep);}
- .mono{font-family:'JetBrains Mono',monospace;}
- .eyebrow{
- font-family:'JetBrains Mono',monospace;
- font-size:12.5px;
- letter-spacing:0.14em;
- text-transform:uppercase;
- color:var(--navy);
- display:flex;
- align-items:center;
- gap:10px;
- margin-bottom:18px;
- font-weight:600;
- }
- .eyebrow::before{
- content:"";
- width:22px;height:1px;background:var(--navy);
- display:inline-block;
- }
+  :root{
+    --navy:#003375;
+    --navy-deep:#001c40;
+    --navy-soft:#0f4694;
+    --ink:#171c26;
+    --muted:#5b6577;
+    --paper:#f2f3f7;
+    --white:#ffffff;
+    --line:#dfe2e9;
+    --line-strong:#c7ccd8;
+    --steel:#8b96ab;
+    --ok:#1c7a4a;
+    --maxw:1240px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Inter',sans-serif;
+    color:var(--ink);
+    background:var(--white);
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ul{margin:0;padding:0;list-style:none;}
+  button{font-family:inherit;cursor:pointer;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px;}
+  h1,h2,h3,h4{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:0.01em;margin:0;color:var(--navy-deep);}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--navy);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:18px;
+    font-weight:600;
+  }
+  .eyebrow::before{
+    content:"";
+    width:22px;height:1px;background:var(--navy);
+    display:inline-block;
+  }
 
- /* ===== HEADER (single clean bar, no separate topbar) ===== */
- body{background:#fff;}
- /* ===== PAGE-LOAD ENTRANCE ANIMATION (Ragged Edge-style: giant wordmark on vivid gradient) ===== */
- #intro-loader{
- position:fixed;inset:0;z-index:999;
- display:flex;align-items:center;justify-content:center;
- transition:opacity .5s ease, visibility .5s ease;
- overflow:hidden;
- }
- #intro-loader.hide{opacity:0;visibility:hidden;}
- #intro-gradient-bg{
- position:absolute;inset:-10%;
- background:linear-gradient(120deg, #001c40 0%, #0f4694 30%, #3a8dff 52%, #5ea8ff 62%, #0f4694 78%, #001c40 100%);
- background-size:280% 280%;
- animation:introGradientMove 4s ease-in-out infinite;
- }
- @keyframes introGradientMove{
- 0%{background-position:0% 30%;}
- 50%{background-position:100% 70%;}
- 100%{background-position:0% 30%;}
- }
- #intro-wordmark-big{
- position:relative;width:min(70vw,720px);
- transform:scale(0.72);opacity:0;
- animation:introBigIn 1s cubic-bezier(.16,1,.3,1) forwards;animation-delay:.1s;
- filter:drop-shadow(0 10px 60px rgba(0,20,48,0.35));
- }
- @keyframes introBigIn{
- 0%{transform:scale(0.72);opacity:0;}
- 60%{transform:scale(1.04);opacity:1;}
- 100%{transform:scale(1);opacity:1;}
- }
- #intro-flash{
- position:absolute;inset:0;background:#eaf2ff;opacity:0;pointer-events:none;
- animation:introFlash .5s ease forwards;animation-delay:1.15s;
- }
- @keyframes introFlash{0%{opacity:0;}45%{opacity:0.85;}100%{opacity:0;}}
- body.intro-lock{overflow:hidden;height:100vh;}
- @keyframes fadeSlideDown{from{opacity:0;transform:translateY(-16px);}to{opacity:1;transform:translateY(0);}}
- @keyframes fadeSlideUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
- @keyframes heroPhotoIn{from{opacity:0;transform:scale(1.06);}to{opacity:1;transform:scale(1);}}
- @media (prefers-reduced-motion: no-preference){
- header.main{animation:fadeSlideDown .7s cubic-bezier(.2,.8,.2,1) both;}
- .hero-photo{animation:heroPhotoIn 1.1s cubic-bezier(.2,.8,.2,1) both;}
- .hero-inner .hero-tag{animation:fadeSlideUp .7s cubic-bezier(.2,.8,.2,1) both; animation-delay:.35s;}
- .hero h1{animation:fadeSlideUp .7s cubic-bezier(.2,.8,.2,1) both; animation-delay:.48s;}
- .hero-cta-row{animation:fadeSlideUp .7s cubic-bezier(.2,.8,.2,1) both; animation-delay:.62s;}
- .marquee-sec-inner{animation:fadeSlideUp .7s cubic-bezier(.2,.8,.2,1) both; animation-delay:.78s;}
- .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.2,.8,.2,1), transform .7s cubic-bezier(.2,.8,.2,1);}
- .reveal-in{opacity:1;transform:translateY(0);}
- }
+  /* ===== HEADER (single clean bar, no separate topbar) ===== */
+  body{background:#fff;}
+  /* ===== PAGE-LOAD ENTRANCE ANIMATION (Ragged Edge-style: giant wordmark on vivid gradient) ===== */
+  #intro-loader{
+    position:fixed;inset:0;z-index:999;
+    display:flex;align-items:center;justify-content:center;
+    transition:opacity .5s ease, visibility .5s ease;
+    overflow:hidden;
+  }
+  #intro-loader.hide{opacity:0;visibility:hidden;}
+  #intro-gradient-bg{
+    position:absolute;inset:-10%;
+    background:linear-gradient(120deg, #001c40 0%, #0f4694 30%, #3a8dff 52%, #5ea8ff 62%, #0f4694 78%, #001c40 100%);
+    background-size:280% 280%;
+    animation:introGradientMove 4s ease-in-out infinite;
+  }
+  @keyframes introGradientMove{
+    0%{background-position:0% 30%;}
+    50%{background-position:100% 70%;}
+    100%{background-position:0% 30%;}
+  }
+  #intro-wordmark-big{
+    position:relative;width:min(70vw,720px);
+    transform:scale(0.72);opacity:0;
+    animation:introBigIn 1s cubic-bezier(.16,1,.3,1) forwards;animation-delay:.1s;
+    filter:drop-shadow(0 10px 60px rgba(0,20,48,0.35));
+  }
+  @keyframes introBigIn{
+    0%{transform:scale(0.72);opacity:0;}
+    60%{transform:scale(1.04);opacity:1;}
+    100%{transform:scale(1);opacity:1;}
+  }
+  #intro-flash{
+    position:absolute;inset:0;background:#eaf2ff;opacity:0;pointer-events:none;
+    animation:introFlash .5s ease forwards;animation-delay:1.15s;
+  }
+  @keyframes introFlash{0%{opacity:0;}45%{opacity:0.85;}100%{opacity:0;}}
+  body.intro-lock{overflow:hidden;height:100vh;}
+  @keyframes fadeSlideDown{from{opacity:0;transform:translateY(-16px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes fadeSlideUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes heroPhotoIn{from{opacity:0;transform:scale(1.06);}to{opacity:1;transform:scale(1);}}
+  @media (prefers-reduced-motion: no-preference){
+    header.main{animation:fadeSlideDown .7s cubic-bezier(.2,.8,.2,1) both;}
+    .hero-photo{animation:heroPhotoIn 1.1s cubic-bezier(.2,.8,.2,1) both;}
+    .hero-inner .hero-tag{animation:fadeSlideUp .7s cubic-bezier(.2,.8,.2,1) both; animation-delay:.35s;}
+    .hero h1{animation:fadeSlideUp .7s cubic-bezier(.2,.8,.2,1) both; animation-delay:.48s;}
+    .hero-cta-row{animation:fadeSlideUp .7s cubic-bezier(.2,.8,.2,1) both; animation-delay:.62s;}
+    .marquee-sec-inner{animation:fadeSlideUp .7s cubic-bezier(.2,.8,.2,1) both; animation-delay:.78s;}
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.2,.8,.2,1), transform .7s cubic-bezier(.2,.8,.2,1);}
+    .reveal-in{opacity:1;transform:translateY(0);}
+  }
 
- header.main{
- position:sticky;top:16px;z-index:50;
- margin:0 24px;
- }
- header.main .wrap{
- max-width:calc(var(--maxw) - 48px);
- display:flex;align-items:center;justify-content:space-between;
- padding:14px 26px;
- background:rgba(255,255,255,0.9);
- backdrop-filter:blur(14px);
- border:1px solid var(--line);
- border-radius:100px;
- box-shadow:0 8px 30px rgba(0,20,48,0.07);
- }
- .header-right{display:flex;align-items:center;gap:22px;}
- .header-phone{display:flex;flex-direction:column;line-height:1.25;}
- .header-phone a{font-weight:700;font-size:14px;color:var(--navy-deep);}
- .header-phone span{font-size:11px;color:var(--muted);}
- .logo{display:flex;align-items:center;font-family:'Oswald',sans-serif;font-size:22px;font-weight:600;color:var(--navy);letter-spacing:0.02em;}
- nav.primary{display:flex;gap:36px;}
- nav.primary a{font-size:14.5px;font-weight:500;color:var(--ink);position:relative;padding:4px 0;}
- nav.primary a:hover{color:var(--navy);}
- .btn{
- display:inline-flex;align-items:center;justify-content:center;gap:8px;
- padding:13px 26px;
- background:var(--navy);color:#fff;
- font-weight:600;font-size:14px;
- border:1px solid var(--navy);
- border-radius:100px;
- transition:all .15s ease;
- white-space:nowrap;
- }
- .btn:hover{background:var(--navy-deep);border-color:var(--navy-deep);}
- .btn.ghost{background:transparent;color:var(--navy-deep);}
- .btn.ghost:hover{background:var(--navy-deep);color:#fff;}
- .btn.on-dark{background:#fff;color:var(--navy-deep);border-color:#fff;}
- .btn.on-dark:hover{background:transparent;color:#fff;}
+  header.main{
+    position:sticky;top:16px;z-index:50;
+    margin:0 24px;
+  }
+  header.main .wrap{
+    max-width:calc(var(--maxw) - 48px);
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 26px;
+    background:rgba(255,255,255,0.9);
+    backdrop-filter:blur(14px);
+    border:1px solid var(--line);
+    border-radius:100px;
+    box-shadow:0 8px 30px rgba(0,20,48,0.07);
+  }
+  .header-right{display:flex;align-items:center;gap:22px;}
+  .header-phone{display:flex;flex-direction:column;line-height:1.25;}
+  .header-phone a{font-weight:700;font-size:14px;color:var(--navy-deep);}
+  .header-phone span{font-size:11px;color:var(--muted);}
+  .logo{display:flex;align-items:center;font-family:'Oswald',sans-serif;font-size:22px;font-weight:600;color:var(--navy);letter-spacing:0.02em;}
+  nav.primary{display:flex;gap:36px;}
+  nav.primary a{font-size:14.5px;font-weight:500;color:var(--ink);position:relative;padding:4px 0;}
+  nav.primary a:hover{color:var(--navy);}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:13px 26px;
+    background:var(--navy);color:#fff;
+    font-weight:600;font-size:14px;
+    border:1px solid var(--navy);
+    border-radius:100px;
+    transition:all .15s ease;
+    white-space:nowrap;
+  }
+  .btn:hover{background:var(--navy-deep);border-color:var(--navy-deep);}
+  .btn.ghost{background:transparent;color:var(--navy-deep);}
+  .btn.ghost:hover{background:var(--navy-deep);color:#fff;}
+  .btn.on-dark{background:#fff;color:var(--navy-deep);border-color:#fff;}
+  .btn.on-dark:hover{background:transparent;color:#fff;}
 
- /* ===== HERO (rounded floating card on white page, no edge-to-edge dark bars) ===== */
- .hero{background:#fff;padding:28px 24px 0;}
- .hero-photo{
- position:relative;height:min(78vh,680px);min-height:480px;
- max-width:var(--maxw);margin:0 auto;
- border-radius:28px;overflow:hidden;
- background:url('https://images.unsplash.com/photo-1487754180451-c456f719a1fc?q=80&w=1800&auto=format&fit=crop') center 38%/cover;
- display:flex;flex-direction:column;justify-content:center;align-items:center;
- text-align:center;
- }
- .hero-photo::before{
- content:"";position:absolute;inset:0;
- background:linear-gradient(180deg, rgba(0,20,48,0.5) 0%, rgba(0,20,48,0.32) 42%, rgba(0,20,48,0.68) 100%);
- }
- .hero-inner{position:relative;max-width:760px;padding:0 32px;}
- .hero-inner .hero-tag{
- display:inline-flex;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.08em;
- color:#e4ecfa;margin-bottom:26px;
- background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.28);
- border-radius:100px;padding:8px 18px;
- }
- .hero h1{
- font-family:'Oswald',sans-serif;font-style:normal;font-weight:700;text-transform:uppercase;
- color:#fff;font-size:clamp(32px,5vw,56px);line-height:1.08;letter-spacing:0.005em;
- margin-bottom:32px;
- }
- .hero-cta-row{display:flex;gap:14px;align-items:center;justify-content:center;flex-wrap:wrap;}
- .hero-cta-row .btn{padding:14px 30px;border-radius:100px;font-size:14.5px;}
- .hero-cta-row .btn.outline{background:transparent;border:1px solid rgba(255,255,255,0.75);color:#fff;}
- .hero-cta-row .btn.outline:hover{background:#fff;color:var(--navy-deep);}
- .hero-cta-row .btn.solid{background:var(--navy);border-color:var(--navy);}
- .hero-cta-row .btn.solid:hover{background:#0f4694;border-color:#0f4694;}
+  /* ===== HERO (rounded floating card on white page, no edge-to-edge dark bars) ===== */
+  .hero{background:#fff;padding:28px 24px 0;}
+  .hero-photo{
+    position:relative;height:min(78vh,680px);min-height:480px;
+    max-width:var(--maxw);margin:0 auto;
+    border-radius:28px;overflow:hidden;
+    background:url('https://images.unsplash.com/photo-1487754180451-c456f719a1fc?q=80&w=1800&auto=format&fit=crop') center 38%/cover;
+    display:flex;flex-direction:column;justify-content:center;align-items:center;
+    text-align:center;
+  }
+  .hero-photo::before{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg, rgba(0,20,48,0.5) 0%, rgba(0,20,48,0.32) 42%, rgba(0,20,48,0.68) 100%);
+  }
+  .hero-inner{position:relative;max-width:760px;padding:0 32px;}
+  .hero-inner .hero-tag{
+    display:inline-flex;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.08em;
+    color:#e4ecfa;margin-bottom:26px;
+    background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.28);
+    border-radius:100px;padding:8px 18px;
+  }
+  .hero h1{
+    font-family:'Oswald',sans-serif;font-style:normal;font-weight:700;text-transform:uppercase;
+    color:#fff;font-size:clamp(32px,5vw,56px);line-height:1.08;letter-spacing:0.005em;
+    margin-bottom:32px;
+  }
+  .hero-cta-row{display:flex;gap:14px;align-items:center;justify-content:center;flex-wrap:wrap;}
+  .hero-cta-row .btn{padding:14px 30px;border-radius:100px;font-size:14.5px;}
+  .hero-cta-row .btn.outline{background:transparent;border:1px solid rgba(255,255,255,0.75);color:#fff;}
+  .hero-cta-row .btn.outline:hover{background:#fff;color:var(--navy-deep);}
+  .hero-cta-row .btn.solid{background:var(--navy);border-color:var(--navy);}
+  .hero-cta-row .btn.solid:hover{background:#0f4694;border-color:#0f4694;}
 
- /* ===== MARQUEE (soft rounded inset strip, quiet typography) ===== */
- .marquee-sec{padding:20px 24px 0;}
- .marquee-sec-inner{
- max-width:var(--maxw);margin:0 auto;
- background:var(--paper);border:1px solid var(--line);border-radius:16px;
- padding:22px 0;overflow:hidden;
- }
- .marquee-track{display:flex;align-items:center;gap:0;width:max-content;animation:scroll 32s linear infinite;}
- .marquee-track span{
- font-family:'Inter',sans-serif;font-size:15.5px;font-weight:600;color:var(--steel);letter-spacing:0.01em;
- white-space:nowrap;padding:0 26px;position:relative;
- }
- .marquee-track span:not(:first-child)::before{
- content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);
- width:1px;height:14px;background:var(--line-strong);
- }
- @keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  /* ===== MARQUEE (soft rounded inset strip, quiet typography) ===== */
+  .marquee-sec{padding:20px 24px 0;}
+  .marquee-sec-inner{
+    max-width:var(--maxw);margin:0 auto;
+    background:var(--paper);border:1px solid var(--line);border-radius:16px;
+    padding:22px 0;overflow:hidden;
+  }
+  .marquee-track{display:flex;align-items:center;gap:0;width:max-content;animation:scroll 32s linear infinite;}
+  .marquee-track span{
+    font-family:'Inter',sans-serif;font-size:15.5px;font-weight:600;color:var(--steel);letter-spacing:0.01em;
+    white-space:nowrap;padding:0 26px;position:relative;
+  }
+  .marquee-track span:not(:first-child)::before{
+    content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);
+    width:1px;height:14px;background:var(--line-strong);
+  }
+  @keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 
- /* ===== SECTION shared ===== */
- section{padding:100px 0;}
- .section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:56px;flex-wrap:wrap;}
- .section-head h2{font-size:clamp(30px,3.6vw,44px);max-width:640px;line-height:1.08;}
- .section-head .desc{max-width:380px;color:var(--muted);font-size:15px;line-height:1.55;}
+  /* ===== SECTION shared ===== */
+  section{padding:100px 0;}
+  .section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:56px;flex-wrap:wrap;}
+  .section-head h2{font-size:clamp(30px,3.6vw,44px);max-width:640px;line-height:1.08;}
+  .section-head .desc{max-width:380px;color:var(--muted);font-size:15px;line-height:1.55;}
 
- /* ===== CALCULATOR (Intercom-style: light panel + underline fields + live numbers) ===== */
- .calc{background:#fff;}
- .calc-panel{
- background:#eef4fc;border-radius:16px;overflow:hidden;
- display:grid;grid-template-columns:1fr 1fr;
- }
- .calc-form{padding:48px;}
- .calc-form h3{font-family:'Inter',sans-serif;text-transform:none;font-size:22px;font-weight:700;color:var(--navy-deep);margin-bottom:28px;line-height:1.3;}
- .field-row{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:22px;}
- .field{display:flex;flex-direction:column;gap:8px;}
- .field label{font-size:13px;color:var(--muted);font-weight:500;}
- .field select, .field input{
- border:none;border-bottom:1.5px solid #b9cbe4;border-radius:0;padding:9px 2px;font-size:15px;
- font-family:'Inter',sans-serif;color:var(--ink);background:transparent;
- }
- .field select:focus, .field input:focus{outline:none;border-color:var(--navy);}
- .field select::placeholder, .field input::placeholder{color:#93a5c2;}
- .calc-form .btn{margin-top:10px;padding:14px 30px;font-size:14.5px;border-radius:100px;}
- .calc-side{
- background:#fff;padding:48px;
- display:flex;flex-direction:column;justify-content:center;gap:30px;
- }
- .calc-stat-row{border-top:1px solid var(--line);padding-top:20px;}
- .calc-stat-row:first-child{border-top:none;padding-top:0;}
- .calc-stat-row .lbl{font-size:14px;color:var(--muted);display:flex;align-items:center;gap:6px;margin-bottom:6px;}
- .calc-stat-row .val{font-family:'Oswald',sans-serif;font-size:40px;font-weight:600;color:var(--navy-deep);line-height:1;transition:color .2s;}
- .calc-stat-row .val.live{color:var(--navy);}
+  /* ===== CALCULATOR (Intercom-style: light panel + underline fields + live numbers) ===== */
+  .calc{background:#fff;}
+  .calc-panel{
+    background:#eef4fc;border-radius:16px;overflow:hidden;
+    display:grid;grid-template-columns:1fr 1fr;
+  }
+  .calc-form{padding:48px;}
+  .calc-form h3{font-family:'Inter',sans-serif;text-transform:none;font-size:22px;font-weight:700;color:var(--navy-deep);margin-bottom:28px;line-height:1.3;}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:22px;}
+  .field{display:flex;flex-direction:column;gap:8px;}
+  .field label{font-size:13px;color:var(--muted);font-weight:500;}
+  .field select, .field input{
+    border:none;border-bottom:1.5px solid #b9cbe4;border-radius:0;padding:9px 2px;font-size:15px;
+    font-family:'Inter',sans-serif;color:var(--ink);background:transparent;
+  }
+  .field select:focus, .field input:focus{outline:none;border-color:var(--navy);}
+  .field select::placeholder, .field input::placeholder{color:#93a5c2;}
+  .calc-form .btn{margin-top:10px;padding:14px 30px;font-size:14.5px;border-radius:100px;}
+  .calc-side{
+    background:#fff;padding:48px;
+    display:flex;flex-direction:column;justify-content:center;gap:30px;
+  }
+  .calc-stat-row{border-top:1px solid var(--line);padding-top:20px;}
+  .calc-stat-row:first-child{border-top:none;padding-top:0;}
+  .calc-stat-row .lbl{font-size:14px;color:var(--muted);display:flex;align-items:center;gap:6px;margin-bottom:6px;}
+  .calc-stat-row .val{font-family:'Oswald',sans-serif;font-size:40px;font-weight:600;color:var(--navy-deep);line-height:1;transition:color .2s;}
+  .calc-stat-row .val.live{color:var(--navy);}
 
- /* ===== SERVICES (compact: 4-col grid, smaller cards) ===== */
- .svc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
- .svc-card{
- background:#fff;padding:20px;position:relative;
- border:1.5px solid var(--line-strong);border-radius:14px;
- display:flex;flex-direction:column;gap:10px;
- transition:border-color .2s, box-shadow .2s;
- cursor:pointer;
- }
- .svc-card:hover{border-color:var(--navy); box-shadow:0 8px 24px rgba(0,51,117,0.08);}
- .svc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;}
- .svc-code{
- font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--navy);letter-spacing:0.04em;
- background:var(--paper);border-radius:6px;padding:4px 7px;
- }
- .svc-price-big{display:flex;align-items:baseline;gap:5px;}
- .svc-price-big .from{font-size:12px;color:var(--muted);}
- .svc-price-big .num{font-family:'Oswald',sans-serif;font-size:24px;font-weight:600;color:var(--navy-deep);line-height:1;}
- .svc-price-big .cur{font-size:13px;color:var(--muted);}
- .svc-card h4{font-size:14.5px;text-transform:none;color:var(--ink);font-weight:700;font-family:'Inter',sans-serif;line-height:1.3;letter-spacing:0;}
- .svc-toggle{
- display:flex;align-items:center;gap:6px;
- font-size:12px;font-weight:600;
- color:var(--navy);background:none;border:none;padding:0;align-self:flex-start;margin-top:auto;
- }
- .svc-toggle .arrow{font-size:12px;}
- .svc-cta-row{margin-top:44px;text-align:center;}
- .svc-cta-row p{color:var(--muted);font-size:14px;margin-bottom:18px;}
+  /* ===== SERVICES (compact: 4-col grid, smaller cards) ===== */
+  .svc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  .svc-card{
+    background:#fff;padding:20px;position:relative;
+    border:1.5px solid var(--line-strong);border-radius:14px;
+    display:flex;flex-direction:column;gap:10px;
+    transition:border-color .2s, box-shadow .2s;
+    cursor:pointer;
+  }
+  .svc-card:hover{border-color:var(--navy); box-shadow:0 8px 24px rgba(0,51,117,0.08);}
+  .svc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;}
+  .svc-code{
+    font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--navy);letter-spacing:0.04em;
+    background:var(--paper);border-radius:6px;padding:4px 7px;
+  }
+  .svc-price-big{display:flex;align-items:baseline;gap:5px;}
+  .svc-price-big .from{font-size:12px;color:var(--muted);}
+  .svc-price-big .num{font-family:'Oswald',sans-serif;font-size:24px;font-weight:600;color:var(--navy-deep);line-height:1;}
+  .svc-price-big .cur{font-size:13px;color:var(--muted);}
+  .svc-card h4{font-size:14.5px;text-transform:none;color:var(--ink);font-weight:700;font-family:'Inter',sans-serif;line-height:1.3;letter-spacing:0;}
+  .svc-toggle{
+    display:flex;align-items:center;gap:6px;
+    font-size:12px;font-weight:600;
+    color:var(--navy);background:none;border:none;padding:0;align-self:flex-start;margin-top:auto;
+  }
+  .svc-toggle .arrow{font-size:12px;}
+  .svc-cta-row{margin-top:44px;text-align:center;}
+  .svc-cta-row p{color:var(--muted);font-size:14px;margin-bottom:18px;}
 
- /* ===== SERVICE MODAL (opens near top of screen) ===== */
- .svc-modal-overlay{
- position:fixed;inset:0;background:rgba(0,20,48,0.5);
- display:none;align-items:flex-start;justify-content:center;
- padding:80px 20px 20px;z-index:200;overflow-y:auto;
- }
- .svc-modal-overlay.open{display:flex;}
- .svc-modal{
- background:#fff;border-radius:20px;max-width:560px;width:100%;
- padding:36px;position:relative;
- box-shadow:0 30px 60px rgba(0,20,48,0.3);
- animation:modalIn .2s ease;
- }
- @keyframes modalIn{from{opacity:0;transform:translateY(-12px);}to{opacity:1;transform:translateY(0);}}
- .svc-modal-close{
- position:absolute;top:20px;right:20px;width:32px;height:32px;border-radius:50%;
- border:1px solid var(--line-strong);background:#fff;color:var(--muted);
- font-size:16px;display:flex;align-items:center;justify-content:center;
- cursor:pointer;
- }
- .svc-modal-close:hover{background:var(--paper);}
- .svc-modal-code{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--navy);background:var(--paper);border-radius:6px;padding:4px 8px;display:inline-block;margin-bottom:14px;}
- .svc-modal h3{font-size:22px;text-transform:none;font-family:'Inter',sans-serif;font-weight:700;color:var(--navy-deep);margin-bottom:6px;line-height:1.3;}
- .svc-modal .svc-modal-price{font-family:'Oswald',sans-serif;font-size:22px;font-weight:600;color:var(--navy);margin-bottom:20px;}
- .svc-modal .svc-modal-body{font-size:14.5px;color:var(--muted);line-height:1.7;max-height:50vh;overflow-y:auto;}
- .svc-modal .svc-modal-body p{margin:0 0 14px;}
- .svc-modal .svc-modal-body p:last-child{margin-bottom:0;}
- .svc-modal .btn{margin-top:22px;width:100%;}
+  /* ===== SERVICE MODAL (opens near top of screen) ===== */
+  .svc-modal-overlay{
+    position:fixed;inset:0;background:rgba(0,20,48,0.5);
+    display:none;align-items:flex-start;justify-content:center;
+    padding:80px 20px 20px;z-index:200;overflow-y:auto;
+  }
+  .svc-modal-overlay.open{display:flex;}
+  .svc-modal{
+    background:#fff;border-radius:20px;max-width:560px;width:100%;
+    padding:36px;position:relative;
+    box-shadow:0 30px 60px rgba(0,20,48,0.3);
+    animation:modalIn .2s ease;
+  }
+  @keyframes modalIn{from{opacity:0;transform:translateY(-12px);}to{opacity:1;transform:translateY(0);}}
+  .svc-modal-close{
+    position:absolute;top:20px;right:20px;width:32px;height:32px;border-radius:50%;
+    border:1px solid var(--line-strong);background:#fff;color:var(--muted);
+    font-size:16px;display:flex;align-items:center;justify-content:center;
+    cursor:pointer;
+  }
+  .svc-modal-close:hover{background:var(--paper);}
+  .svc-modal-code{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--navy);background:var(--paper);border-radius:6px;padding:4px 8px;display:inline-block;margin-bottom:14px;}
+  .svc-modal h3{font-size:22px;text-transform:none;font-family:'Inter',sans-serif;font-weight:700;color:var(--navy-deep);margin-bottom:6px;line-height:1.3;}
+  .svc-modal .svc-modal-price{font-family:'Oswald',sans-serif;font-size:22px;font-weight:600;color:var(--navy);margin-bottom:20px;}
+  .svc-modal .svc-modal-body{font-size:14.5px;color:var(--muted);line-height:1.7;max-height:50vh;overflow-y:auto;}
+  .svc-modal .svc-modal-body p{margin:0 0 14px;}
+  .svc-modal .svc-modal-body p:last-child{margin-bottom:0;}
+  .svc-modal .btn{margin-top:22px;width:100%;}
 
- /* ===== ADVANTAGES (Homerun-style: gradient stat bar + dark panel below) ===== */
- .adv{background:#fff;}
- .adv .eyebrow{color:var(--navy);}
- .adv-gradient-bar{
- background:linear-gradient(120deg, var(--navy) 0%, #0f4694 55%, #2a67b8 100%);
- border-radius:20px;padding:40px 44px;
- display:grid;grid-template-columns:repeat(4,1fr);gap:24px;
- margin-bottom:20px;
- }
- .adv-gradient-bar .g-stat .num{font-family:'Oswald',sans-serif;font-size:44px;font-weight:700;color:#fff;line-height:1;}
- .adv-gradient-bar .g-stat .lbl{font-size:13.5px;color:#cfe0f7;margin-top:8px;}
+  /* ===== ADVANTAGES (Homerun-style: gradient stat bar + dark panel below) ===== */
+  .adv{background:#fff;}
+  .adv .eyebrow{color:var(--navy);}
+  .adv-gradient-bar{
+    background:linear-gradient(120deg, var(--navy) 0%, #0f4694 55%, #2a67b8 100%);
+    border-radius:20px;padding:40px 44px;
+    display:grid;grid-template-columns:repeat(4,1fr);gap:24px;
+    margin-bottom:20px;
+  }
+  .adv-gradient-bar .g-stat .num{font-family:'Oswald',sans-serif;font-size:44px;font-weight:700;color:#fff;line-height:1;}
+  .adv-gradient-bar .g-stat .lbl{font-size:13.5px;color:#cfe0f7;margin-top:8px;}
 
- /* ===== REVIEWS ===== */
- .rev-grid{columns:3;column-gap:20px;}
- .rev-card{
- break-inside:avoid;margin-bottom:20px;background:var(--paper);border:1px solid var(--line);
- padding:22px;border-radius:12px;
- }
- .rev-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:10px;}
- .rev-who{display:flex;align-items:center;gap:10px;}
- .rev-avatar{
- width:36px;height:36px;border-radius:50%;flex-shrink:0;
- background:var(--navy);color:#fff;
- display:flex;align-items:center;justify-content:center;
- font-family:'Oswald',sans-serif;font-size:14px;font-weight:600;
- }
- .rev-name{font-weight:600;font-size:14px;color:var(--ink);}
- .rev-date{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--steel);white-space:nowrap;}
- .rev-stars{color:var(--navy);font-size:13px;letter-spacing:2px;margin-bottom:10px;}
- .rev-text{font-size:13.5px;line-height:1.6;color:var(--muted);}
+  /* ===== REVIEWS ===== */
+  .rev-grid{columns:3;column-gap:20px;}
+  .rev-card{
+    break-inside:avoid;margin-bottom:20px;background:var(--paper);border:1px solid var(--line);
+    padding:22px;border-radius:12px;
+  }
+  .rev-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:10px;}
+  .rev-who{display:flex;align-items:center;gap:10px;}
+  .rev-avatar{
+    width:36px;height:36px;border-radius:50%;flex-shrink:0;
+    background:var(--navy);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Oswald',sans-serif;font-size:14px;font-weight:600;
+  }
+  .rev-name{font-weight:600;font-size:14px;color:var(--ink);}
+  .rev-date{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--steel);white-space:nowrap;}
+  .rev-stars{color:var(--navy);font-size:13px;letter-spacing:2px;margin-bottom:10px;}
+  .rev-text{font-size:13.5px;line-height:1.6;color:var(--muted);}
 
- /* ===== CTA BAND (Front-style: bold plaque, headline left / button right) ===== */
- .cta-band{background:#fff;padding:0 0 100px;}
- .cta-plaque{
- background:var(--navy);border-radius:18px;padding:44px 48px;
- display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;
- }
- .cta-plaque h2{color:#fff;font-size:clamp(22px,2.6vw,30px);text-transform:none;font-family:'Inter',sans-serif;font-weight:700;max-width:520px;margin:0;line-height:1.35;}
- .cta-plaque .btn-row{display:flex;gap:12px;flex-wrap:wrap;}
+  /* ===== CTA BAND (Front-style: bold plaque, headline left / button right) ===== */
+  .cta-band{background:#fff;padding:0 0 100px;}
+  .cta-plaque{
+    background:var(--navy);border-radius:18px;padding:44px 48px;
+    display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;
+  }
+  .cta-plaque h2{color:#fff;font-size:clamp(22px,2.6vw,30px);text-transform:none;font-family:'Inter',sans-serif;font-weight:700;max-width:520px;margin:0;line-height:1.35;}
+  .cta-plaque .btn-row{display:flex;gap:12px;flex-wrap:wrap;}
 
- /* ===== FOOTER ===== */
- footer{background:var(--navy-deep);color:#c7d3ea;padding:64px 0 28px;}
- .foot-cta-pill{
- display:block;text-align:center;background:#fff;color:var(--navy-deep);
- border-radius:100px;padding:22px;font-family:'Oswald',sans-serif;text-transform:uppercase;
- font-size:22px;font-weight:600;margin-bottom:14px;transition:background .15s;
- }
- .foot-cta-pill:hover{background:#dbe4f4;}
- .foot-tiles{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:48px;}
- .foot-tile{
- border:1px solid rgba(255,255,255,0.16);border-radius:16px;padding:20px 24px;
- display:flex;align-items:center;gap:12px;font-size:14.5px;color:#fff;font-weight:500;
- transition:background .15s;
- }
- .foot-tile:hover{background:rgba(255,255,255,0.06);}
- .foot-tile .ico{font-size:16px;}
- .foot-top{display:grid;grid-template-columns:1.1fr 1.4fr 0.9fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,0.12);}
- .foot-brand .logo{color:#fff;margin-bottom:16px;}
- .foot-brand p{font-size:13.5px;color:#8ea3c9;line-height:1.6;max-width:280px;}
- .foot-contacts{margin-top:20px;display:flex;flex-direction:column;gap:10px;}
- .foot-contacts a{font-size:14.5px;color:#fff;font-weight:500;}
- .foot-contacts .addr{font-size:13px;color:#9fb3d6;}
- .foot-col h5{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:0.1em;text-transform:uppercase;color:#7f9bd0;margin-bottom:18px;}
- .foot-brands{display:grid;grid-template-columns:repeat(4,1fr);gap:10px 18px;}
- .foot-brands a{font-size:13.5px;color:#c7d3ea;}
- .foot-brands a:hover{color:#fff;}
- .foot-menu{display:flex;flex-direction:column;gap:12px;}
- .foot-menu a{font-size:14px;color:#c7d3ea;}
- .foot-menu a:hover{color:#fff;}
- .foot-legal{display:flex;flex-direction:column;gap:10px;margin-top:18px;}
- .foot-legal a{font-size:12.5px;color:#7f9bd0;}
- .foot-legal a:hover{color:#fff;}
- .foot-bottom{padding-top:24px;display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:#6f87b3;flex-wrap:wrap;gap:10px;}
+  /* ===== FOOTER ===== */
+  footer{background:var(--navy-deep);color:#c7d3ea;padding:64px 0 28px;}
+  .foot-cta-pill{
+    display:block;text-align:center;background:#fff;color:var(--navy-deep);
+    border-radius:100px;padding:22px;font-family:'Oswald',sans-serif;text-transform:uppercase;
+    font-size:22px;font-weight:600;margin-bottom:14px;transition:background .15s;
+  }
+  .foot-cta-pill:hover{background:#dbe4f4;}
+  .foot-tiles{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:48px;}
+  .foot-tile{
+    border:1px solid rgba(255,255,255,0.16);border-radius:16px;padding:20px 24px;
+    display:flex;align-items:center;gap:12px;font-size:14.5px;color:#fff;font-weight:500;
+    transition:background .15s;
+  }
+  .foot-tile:hover{background:rgba(255,255,255,0.06);}
+  .foot-tile .ico{font-size:16px;}
+  .foot-top{display:grid;grid-template-columns:1.1fr 1.4fr 0.9fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,0.12);}
+  .foot-brand .logo{color:#fff;margin-bottom:16px;}
+  .foot-brand p{font-size:13.5px;color:#8ea3c9;line-height:1.6;max-width:280px;}
+  .foot-contacts{margin-top:20px;display:flex;flex-direction:column;gap:10px;}
+  .foot-contacts a{font-size:14.5px;color:#fff;font-weight:500;}
+  .foot-contacts .addr{font-size:13px;color:#9fb3d6;}
+  .foot-col h5{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:0.1em;text-transform:uppercase;color:#7f9bd0;margin-bottom:18px;}
+  .foot-brands{display:grid;grid-template-columns:repeat(4,1fr);gap:10px 18px;}
+  .foot-brands a{font-size:13.5px;color:#c7d3ea;}
+  .foot-brands a:hover{color:#fff;}
+  .foot-menu{display:flex;flex-direction:column;gap:12px;}
+  .foot-menu a{font-size:14px;color:#c7d3ea;}
+  .foot-menu a:hover{color:#fff;}
+  .foot-legal{display:flex;flex-direction:column;gap:10px;margin-top:18px;}
+  .foot-legal a{font-size:12.5px;color:#7f9bd0;}
+  .foot-legal a:hover{color:#fff;}
+  .foot-bottom{padding-top:24px;display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:#6f87b3;flex-wrap:wrap;gap:10px;}
 
- /* ===== responsive ===== */
- @media(max-width:980px){
- nav.primary{display:none;}
- .calc-panel{grid-template-columns:1fr;}
- .svc-grid{grid-template-columns:repeat(2,1fr);}
- .adv-gradient-bar{grid-template-columns:1fr 1fr;}
- .rev-grid{columns:2;}
- .foot-top{grid-template-columns:1fr;gap:36px;}
- .foot-brands{grid-template-columns:repeat(3,1fr);}
- }
- @media(max-width:640px){
- .wrap{padding:0 20px;}
+  /* ===== responsive ===== */
+  @media(max-width:980px){
+    nav.primary{display:none;}
+    .calc-panel{grid-template-columns:1fr;}
+    .svc-grid{grid-template-columns:repeat(2,1fr);}
+    .adv-gradient-bar{grid-template-columns:1fr 1fr;}
+    .rev-grid{columns:2;}
+    .foot-top{grid-template-columns:1fr;gap:36px;}
+    .foot-brands{grid-template-columns:repeat(3,1fr);}
+  }
+  @media(max-width:640px){
+    .wrap{padding:0 20px;}
 
- /* Header: tighter pill, smaller logo, hide phone text, compact CTA */
- header.main{margin:0 12px;top:12px;}
- header.main .wrap{padding:9px 8px 9px 18px;}
- header.main .logo img{height:32px !important;}
- .header-right{gap:10px;}
- .header-phone{display:none;}
- header.main .btn{padding:11px 18px;font-size:13px;}
+    /* Header: tighter pill, smaller logo, hide phone text, compact CTA */
+    header.main{margin:0 12px;top:12px;}
+    header.main .wrap{padding:9px 8px 9px 18px;}
+    header.main .logo img{height:32px !important;}
+    .header-right{gap:10px;}
+    .header-phone{display:none;}
+    header.main .btn{padding:11px 18px;font-size:13px;}
 
- /* Hero: tighter padding, smaller rounded corners, narrower inner column */
- .hero{padding:16px 12px 0;}
- .hero-photo{border-radius:20px;min-height:440px;height:min(72vh,560px);}
- .hero-inner{padding:0 18px;}
- .hero h1{font-size:clamp(28px,8vw,40px);margin-bottom:26px;}
- .hero-inner .hero-tag{font-size:11px;padding:7px 14px;margin-bottom:20px;}
- .hero-cta-row .btn{padding:13px 22px;font-size:13.5px;}
+    /* Hero: tighter padding, smaller rounded corners, narrower inner column */
+    .hero{padding:16px 12px 0;}
+    .hero-photo{border-radius:20px;min-height:440px;height:min(72vh,560px);}
+    .hero-inner{padding:0 18px;}
+    .hero h1{font-size:clamp(28px,8vw,40px);margin-bottom:26px;}
+    .hero-inner .hero-tag{font-size:11px;padding:7px 14px;margin-bottom:20px;}
+    .hero-cta-row .btn{padding:13px 22px;font-size:13.5px;}
 
- /* Marquee */
- .marquee-sec{padding:14px 12px 0;}
- .marquee-track span{font-size:14px;padding:0 18px;}
+    /* Marquee */
+    .marquee-sec{padding:14px 12px 0;}
+    .marquee-track span{font-size:14px;padding:0 18px;}
 
- /* Section rhythm */
- section{padding:56px 0;}
- .section-head{margin-bottom:32px;}
- .section-head h2{font-size:clamp(26px,7vw,34px);}
- .eyebrow{margin-bottom:14px;}
+    /* Section rhythm */
+    section{padding:56px 0;}
+    .section-head{margin-bottom:32px;}
+    .section-head h2{font-size:clamp(26px,7vw,34px);}
+    .eyebrow{margin-bottom:14px;}
 
- /* Calculator */
- .calc-panel{border-radius:14px;}
- .calc-form{padding:26px 22px;}
- .calc-form h3{font-size:18px;margin-bottom:20px;}
- .field-row{grid-template-columns:1fr;gap:16px;margin-bottom:16px;}
- .calc-side{padding:26px 22px;gap:22px;}
- .calc-stat-row .val{font-size:30px;}
+    /* Calculator */
+    .calc-panel{border-radius:14px;}
+    .calc-form{padding:26px 22px;}
+    .calc-form h3{font-size:18px;margin-bottom:20px;}
+    .field-row{grid-template-columns:1fr;gap:16px;margin-bottom:16px;}
+    .calc-side{padding:26px 22px;gap:22px;}
+    .calc-stat-row .val{font-size:30px;}
 
- /* Services grid + modal */
- .svc-grid{grid-template-columns:1fr;gap:10px;}
- .svc-card{padding:18px;}
- .svc-cta-row{margin-top:32px;}
- .svc-modal-overlay{padding:56px 14px 14px;}
- .svc-modal{padding:24px;border-radius:16px;}
- .svc-modal h3{font-size:19px;}
- .svc-modal-close{top:14px;right:14px;}
+    /* Services grid + modal */
+    .svc-grid{grid-template-columns:1fr;gap:10px;}
+    .svc-card{padding:18px;}
+    .svc-cta-row{margin-top:32px;}
+    .svc-modal-overlay{padding:56px 14px 14px;}
+    .svc-modal{padding:24px;border-radius:16px;}
+    .svc-modal h3{font-size:19px;}
+    .svc-modal-close{top:14px;right:14px;}
 
- /* Advantages */
- .adv-gradient-bar{grid-template-columns:1fr 1fr;padding:24px;gap:20px;border-radius:16px;}
- .adv-gradient-bar .g-stat .num{font-size:28px;}
- .adv-gradient-bar .g-stat .lbl{font-size:12px;}
+    /* Advantages */
+    .adv-gradient-bar{grid-template-columns:1fr 1fr;padding:24px;gap:20px;border-radius:16px;}
+    .adv-gradient-bar .g-stat .num{font-size:28px;}
+    .adv-gradient-bar .g-stat .lbl{font-size:12px;}
 
- /* Reviews */
- .rev-grid{columns:1;}
+    /* Reviews */
+    .rev-grid{columns:1;}
 
- /* CTA plaque */
- .cta-band{padding-bottom:56px;}
- .cta-plaque{flex-direction:column;align-items:flex-start;padding:26px 22px;border-radius:14px;}
- .cta-plaque .btn-row{width:100%;}
- .cta-plaque .btn-row .btn{flex:1;text-align:center;}
+    /* CTA plaque */
+    .cta-band{padding-bottom:56px;}
+    .cta-plaque{flex-direction:column;align-items:flex-start;padding:26px 22px;border-radius:14px;}
+    .cta-plaque .btn-row{width:100%;}
+    .cta-plaque .btn-row .btn{flex:1;text-align:center;}
 
- /* Footer */
- footer{padding:48px 0 24px;}
- .foot-cta-pill{font-size:15px;padding:16px;letter-spacing:0.03em;}
- .foot-tiles{grid-template-columns:1fr;margin-bottom:36px;}
- .foot-tile{padding:16px 18px;font-size:13.5px;}
- .foot-top{gap:28px;padding-bottom:32px;}
- .foot-brands{grid-template-columns:repeat(2,1fr);}
- .foot-bottom{flex-direction:column;align-items:flex-start;gap:6px;}
- }
- @media(max-width:400px){
- .hero-cta-row{flex-direction:column;align-self:stretch;}
- .hero-cta-row .btn{width:100%;}
- }
+    /* Footer */
+    footer{padding:48px 0 24px;}
+    .foot-cta-pill{font-size:15px;padding:16px;letter-spacing:0.03em;}
+    .foot-tiles{grid-template-columns:1fr;margin-bottom:36px;}
+    .foot-tile{padding:16px 18px;font-size:13.5px;}
+    .foot-top{gap:28px;padding-bottom:32px;}
+    .foot-brands{grid-template-columns:repeat(2,1fr);}
+    .foot-bottom{flex-direction:column;align-items:flex-start;gap:6px;}
+  }
+  @media(max-width:400px){
+    .hero-cta-row{flex-direction:column;align-self:stretch;}
+    .hero-cta-row .btn{width:100%;}
+  }
 </style>
 <link rel="preload" as="image" href="https://karsto1.ru/wp-content/uploads/2023/05/logo-1.svg">
 </head>
 <body>
 
 <div id="intro-loader">
- <div id="intro-gradient-bg"></div>
- <img id="intro-wordmark-big" src="https://karsto1.ru/wp-content/uploads/2023/05/logo-1.svg" alt="KARSTO1">
- <div id="intro-flash"></div>
+  <div id="intro-gradient-bg"></div>
+  <img id="intro-wordmark-big" src="https://karsto1.ru/wp-content/uploads/2023/05/logo-1.svg" alt="KARSTO1">
+  <div id="intro-flash"></div>
 </div>
 
 
 
 <header class="main">
- <div class="wrap">
- <a href="#top" class="logo" onclick="event.preventDefault(); window.scrollTo({top:0,behavior:'smooth'});" style="cursor:pointer;"><img src="https://karsto1.ru/wp-content/uploads/2023/05/logo-1.svg" alt="KARSTO1" style="height:44px;display:block;"></a>
- <nav class="primary">
- <a href="#services">Услуги</a>
- <a href="#advantages">Преимущества</a>
- <a href="#reviews">Отзывы</a>
- <a href="#contacts">Контакты</a>
- </nav>
- <div class="header-right">
- <div class="header-phone">
- <a href="tel:+79253202111">+7 (925) 320-21-11</a>
- <span>пн–вс, 11:00–23:00</span>
- </div>
- <a href="#calc" class="btn" style="border-radius:100px;">Запись на сервис</a>
- </div>
- </div>
+  <div class="wrap">
+    <a href="#top" class="logo" onclick="event.preventDefault(); window.scrollTo({top:0,behavior:'smooth'});" style="cursor:pointer;"><img src="https://karsto1.ru/wp-content/uploads/2023/05/logo-1.svg" alt="KARSTO1" style="height:44px;display:block;"></a>
+    <nav class="primary">
+      <a href="#services">Услуги</a>
+      <a href="#advantages">Преимущества</a>
+      <a href="#reviews">Отзывы</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+    <div class="header-right">
+      <div class="header-phone">
+        <a href="tel:+79253202111">+7 (925) 320-21-11</a>
+        <span>пн–вс, 11:00–23:00</span>
+      </div>
+      <a href="#calc" class="btn" style="border-radius:100px;">Запись на сервис</a>
+    </div>
+  </div>
 </header>
 
 <section class="hero">
- <div class="hero-photo">
- <div class="hero-inner">
- <div class="hero-tag">Москва · Мытищи · Королёв · Пушкино</div>
- <h1>Ремонт двигателя без компромиссов.<br>Гарантия у нас — 16 месяцев.</h1>
- <div class="hero-cta-row">
- <a href="#calc" class="btn outline">Рассчитать стоимость</a>
- <a href="tel:+79253202111" class="btn solid">Позвонить сейчас</a>
- </div>
- </div>
- </div>
+  <div class="hero-photo">
+    <div class="hero-inner">
+      <div class="hero-tag">Москва · Мытищи · Королёв · Пушкино</div>
+      <h1>Ремонт двигателя без компромиссов.<br>Гарантия у нас — 16 месяцев.</h1>
+      <div class="hero-cta-row">
+        <a href="#calc" class="btn outline">Рассчитать стоимость</a>
+        <a href="tel:+79253202111" class="btn solid">Позвонить сейчас</a>
+      </div>
+    </div>
+  </div>
 </section>
 
 <div class="marquee-sec">
- <div class="marquee-sec-inner">
- <div class="marquee-track" id="marquee"></div>
- </div>
+  <div class="marquee-sec-inner">
+    <div class="marquee-track" id="marquee"></div>
+  </div>
 </div>
 
 <section class="calc" id="calc">
- <div class="wrap">
- <div class="eyebrow">Калькулятор</div>
- <div class="section-head">
- <h2>Рассчитайте стоимость ремонта вашего двигателя</h2>
- <div class="desc">Укажите параметры автомобиля и опишите проблему — мы свяжемся с вами и назовём точную стоимость работ.</div>
- </div>
- <div class="calc-panel">
- <form class="calc-form" id="calc-form" onsubmit="event.preventDefault(); document.getElementById('calc-submitted').style.display='block';">
- <h3>Заполните параметры — справа сразу увидите ориентир по стоимости</h3>
- <div class="field-row">
- <div class="field">
- <label>Год выпуска</label>
- <select required>
- <option value="">Выберите год</option>
- <option>2023</option><option>2022</option><option>2021</option><option>2020</option><option>2019</option><option>2018</option><option>2017</option><option>2016</option><option>2015</option><option>2014</option><option>2013</option><option>2012</option><option>2011</option><option>2010</option><option>2009</option><option>2008</option><option>2007</option><option>2006</option><option>2005</option><option>2004</option><option>2003</option><option>2002</option><option>2001</option><option>2000</option><option>1999</option><option>1998</option><option>1997</option><option>1996</option><option>1995</option><option>1994</option><option>1993</option><option>1992</option><option>1991</option><option>1990</option>
- </select>
- </div>
- <div class="field">
- <label>Марка/Модель</label>
- <input type="text" placeholder="Например: Volkswagen Touareg">
- </div>
- </div>
- <div class="field-row">
- <div class="field">
- <label>Тип двигателя</label>
- <select required>
- <option value="">Выберите тип</option>
- <option>Бензиновый двигатель</option>
- <option>Дизельный двигатель</option>
- </select>
- </div>
- <div class="field">
- <label>Объём двигателя</label>
- <select required>
- <option value="">Выберите объём, л</option>
- <option>0.7</option><option>0.8</option><option>0.9</option><option>1.0</option><option>1.1</option><option>1.2</option><option>1.3</option><option>1.4</option><option>1.5</option><option>1.6</option><option>1.7</option><option>1.8</option><option>1.9</option><option>2.0</option><option>2.1</option><option>2.2</option><option>2.3</option><option>2.4</option><option>2.5</option><option>2.6</option><option>2.7</option><option>2.8</option><option>2.9</option><option>3.0</option><option>3.1</option><option>3.2</option><option>3.3</option><option>3.4</option><option>3.5</option><option>3.6</option><option>3.7</option><option>3.8</option><option>3.9</option><option>4.0</option><option>4.1</option><option>4.2</option><option>4.3</option><option>4.4</option><option>4.5</option><option>4.6</option><option>4.7</option><option>4.8</option><option>4.9</option><option>5.0</option><option>5.1</option><option>5.2</option><option>5.3</option><option>5.4</option><option>5.5</option><option>5.6</option><option>5.7</option><option>5.8</option><option>5.9</option><option>6.0</option>
- </select>
- </div>
- </div>
- <div class="field-row">
- <div class="field">
- <label>Количество цилиндров</label>
- <input type="text" placeholder="Например: 4">
- </div>
- <div class="field">
- <label>Неисправность</label>
- <input type="text" id="calc-issue" placeholder="Например: перегрев, стук, дымит">
- </div>
- </div>
- <div class="field-row">
- <div class="field">
- <label>Ваше имя</label>
- <input type="text" placeholder="Имя" required>
- </div>
- <div class="field">
- <label>Ваш телефон</label>
- <input type="tel" placeholder="+7 (___) ___-__-__" required>
- </div>
- </div>
- <button class="btn" type="submit">Отправить заявку</button>
- <div style="font-size:12px;color:var(--muted);margin-top:12px;line-height:1.5;">Отправляя форму, вы соглашаетесь с <a href="#" style="color:var(--navy);text-decoration:underline;">политикой конфиденциальности</a> и правилами сайта</div>
- <div id="calc-submitted" style="display:none;margin-top:14px;font-size:13.5px;color:var(--ok);font-weight:600;">✓ Заявка принята — мы перезвоним в течение 15 минут</div>
- </form>
- <div class="calc-side">
- <div class="calc-stat-row">
- <div class="lbl">Ориентировочная стоимость</div>
- <div class="val live" id="calc-price">от 8 000 ₽</div>
- </div>
- <div class="calc-stat-row">
- <div class="lbl">Гарантия на работы и запчасти</div>
- <div class="val">16 мес</div>
- </div>
- <div class="calc-stat-row">
- <div class="lbl">Ответим на заявку в течение</div>
- <div class="val">15 мин</div>
- </div>
- </div>
- </div>
- </div>
+  <div class="wrap">
+    <div class="eyebrow">Калькулятор</div>
+    <div class="section-head">
+      <h2>Рассчитайте стоимость ремонта вашего двигателя</h2>
+      <div class="desc">Укажите параметры автомобиля и опишите проблему — мы свяжемся с вами и назовём точную стоимость работ.</div>
+    </div>
+    <div class="calc-panel">
+      <form class="calc-form" id="calc-form" onsubmit="event.preventDefault(); document.getElementById('calc-submitted').style.display='block';">
+        <h3>Заполните параметры — справа сразу увидите ориентир по стоимости</h3>
+        <div class="field-row">
+          <div class="field">
+            <label>Год выпуска</label>
+            <select required>
+              <option value="">Выберите год</option>
+              <option>2023</option><option>2022</option><option>2021</option><option>2020</option><option>2019</option><option>2018</option><option>2017</option><option>2016</option><option>2015</option><option>2014</option><option>2013</option><option>2012</option><option>2011</option><option>2010</option><option>2009</option><option>2008</option><option>2007</option><option>2006</option><option>2005</option><option>2004</option><option>2003</option><option>2002</option><option>2001</option><option>2000</option><option>1999</option><option>1998</option><option>1997</option><option>1996</option><option>1995</option><option>1994</option><option>1993</option><option>1992</option><option>1991</option><option>1990</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Марка/Модель</label>
+            <input type="text" placeholder="Например: Volkswagen Touareg">
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Тип двигателя</label>
+            <select required>
+              <option value="">Выберите тип</option>
+              <option>Бензиновый двигатель</option>
+              <option>Дизельный двигатель</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Объём двигателя</label>
+            <select required>
+              <option value="">Выберите объём, л</option>
+              <option>0.7</option><option>0.8</option><option>0.9</option><option>1.0</option><option>1.1</option><option>1.2</option><option>1.3</option><option>1.4</option><option>1.5</option><option>1.6</option><option>1.7</option><option>1.8</option><option>1.9</option><option>2.0</option><option>2.1</option><option>2.2</option><option>2.3</option><option>2.4</option><option>2.5</option><option>2.6</option><option>2.7</option><option>2.8</option><option>2.9</option><option>3.0</option><option>3.1</option><option>3.2</option><option>3.3</option><option>3.4</option><option>3.5</option><option>3.6</option><option>3.7</option><option>3.8</option><option>3.9</option><option>4.0</option><option>4.1</option><option>4.2</option><option>4.3</option><option>4.4</option><option>4.5</option><option>4.6</option><option>4.7</option><option>4.8</option><option>4.9</option><option>5.0</option><option>5.1</option><option>5.2</option><option>5.3</option><option>5.4</option><option>5.5</option><option>5.6</option><option>5.7</option><option>5.8</option><option>5.9</option><option>6.0</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Количество цилиндров</label>
+            <input type="text" placeholder="Например: 4">
+          </div>
+          <div class="field">
+            <label>Неисправность</label>
+            <input type="text" id="calc-issue" placeholder="Например: перегрев, стук, дымит">
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Ваше имя</label>
+            <input type="text" placeholder="Имя" required>
+          </div>
+          <div class="field">
+            <label>Ваш телефон</label>
+            <input type="tel" placeholder="+7 (___) ___-__-__" required>
+          </div>
+        </div>
+        <button class="btn" type="submit">Отправить заявку</button>
+        <div style="font-size:12px;color:var(--muted);margin-top:12px;line-height:1.5;">Отправляя форму, вы соглашаетесь с <a href="#" style="color:var(--navy);text-decoration:underline;">политикой конфиденциальности</a> и правилами сайта</div>
+        <div id="calc-submitted" style="display:none;margin-top:14px;font-size:13.5px;color:var(--ok);font-weight:600;">✓ Заявка принята — мы перезвоним в течение 15 минут</div>
+      </form>
+      <div class="calc-side">
+        <div class="calc-stat-row">
+          <div class="lbl">Ориентировочная стоимость</div>
+          <div class="val live" id="calc-price">от 8 000 ₽</div>
+        </div>
+        <div class="calc-stat-row">
+          <div class="lbl">Гарантия на работы и запчасти</div>
+          <div class="val">16 мес</div>
+        </div>
+        <div class="calc-stat-row">
+          <div class="lbl">Ответим на заявку в течение</div>
+          <div class="val">15 мин</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <section id="services">
- <div class="wrap">
- <div class="eyebrow">Прайс-лист</div>
- <div class="section-head">
- <h2>Услуги и цены</h2>
- <div class="desc">17 видов работ по ремонту и обслуживанию двигателя — от замены термостата до капитального ремонта. Нажмите на карточку, чтобы прочитать подробности.</div>
- </div>
- <div class="svc-grid" id="svc-grid"></div>
- <div class="svc-cta-row">
- <p>Не нашли нужную услугу или не уверены в диагнозе?</p>
- <a href="#calc" class="btn">Записаться на диагностику</a>
- </div>
- </div>
+  <div class="wrap">
+    <div class="eyebrow">Прайс-лист</div>
+    <div class="section-head">
+      <h2>Услуги и цены</h2>
+      <div class="desc">17 видов работ по ремонту и обслуживанию двигателя — от замены термостата до капитального ремонта. Нажмите на карточку, чтобы прочитать подробности.</div>
+    </div>
+    <div class="svc-grid" id="svc-grid"></div>
+    <div class="svc-cta-row">
+      <p>Не нашли нужную услугу или не уверены в диагнозе?</p>
+      <a href="#calc" class="btn">Записаться на диагностику</a>
+    </div>
+  </div>
 </section>
 
 <div class="svc-modal-overlay" id="svc-modal-overlay" onclick="if(event.target===this) closeSvcModal();">
- <div class="svc-modal">
- <button class="svc-modal-close" onclick="closeSvcModal();">✕</button>
- <div class="svc-modal-code" id="svc-modal-code"></div>
- <h3 id="svc-modal-title"></h3>
- <div class="svc-modal-price" id="svc-modal-price"></div>
- <div class="svc-modal-body" id="svc-modal-body"></div>
- <a href="#calc" class="btn" onclick="closeSvcModal();">Записаться на эту услугу</a>
- </div>
+  <div class="svc-modal">
+    <button class="svc-modal-close" onclick="closeSvcModal();">✕</button>
+    <div class="svc-modal-code" id="svc-modal-code"></div>
+    <h3 id="svc-modal-title"></h3>
+    <div class="svc-modal-price" id="svc-modal-price"></div>
+    <div class="svc-modal-body" id="svc-modal-body"></div>
+    <a href="#calc" class="btn" onclick="closeSvcModal();">Записаться на эту услугу</a>
+  </div>
 </div>
 
 <section class="adv" id="advantages">
- <div class="wrap">
- <div class="eyebrow">Почему KARSTO1</div>
- <div class="section-head">
- <h2>Преимущества сервиса</h2>
- <div class="desc">Индивидуальный подход к каждому клиенту с учётом особенностей его автомобиля.</div>
- </div>
+  <div class="wrap">
+    <div class="eyebrow">Почему KARSTO1</div>
+    <div class="section-head">
+      <h2>Преимущества сервиса</h2>
+      <div class="desc">Индивидуальный подход к каждому клиенту с учётом особенностей его автомобиля.</div>
+    </div>
 
- <div class="adv-gradient-bar">
- <div class="g-stat"><div class="num">5,0</div><div class="lbl">рейтинг на Яндекс Картах</div></div>
- <div class="g-stat"><div class="num">16 мес</div><div class="lbl">гарантия на услуги и запчасти</div></div>
- <div class="g-stat"><div class="num">–45%</div><div class="lbl">дешевле дилерского техцентра</div></div>
- <div class="g-stat"><div class="num">12+ лет</div><div class="lbl">средний стаж механиков</div></div>
- </div>
- </div>
+    <div class="adv-gradient-bar">
+      <div class="g-stat"><div class="num">5,0</div><div class="lbl">рейтинг на Яндекс Картах</div></div>
+      <div class="g-stat"><div class="num">16 мес</div><div class="lbl">гарантия на услуги и запчасти</div></div>
+      <div class="g-stat"><div class="num">–45%</div><div class="lbl">дешевле дилерского техцентра</div></div>
+      <div class="g-stat"><div class="num">12+ лет</div><div class="lbl">средний стаж механиков</div></div>
+    </div>
+  </div>
 </section>
 
 <section id="reviews">
- <div class="wrap">
- <div class="eyebrow">Отзывы клиентов</div>
- <div class="section-head">
- <h2>Что говорят о нас</h2>
- <div class="desc">Реальные отзывы наших клиентов из Яндекс Карт и других открытых источников.</div>
- </div>
- <div class="rev-grid" id="rev-grid"></div>
- </div>
+  <div class="wrap">
+    <div class="eyebrow">Отзывы клиентов</div>
+    <div class="section-head">
+      <h2>Что говорят о нас</h2>
+      <div class="desc">Реальные отзывы наших клиентов из Яндекс Карт и других открытых источников.</div>
+    </div>
+    <div class="rev-grid" id="rev-grid"></div>
+  </div>
 </section>
 
 <section class="cta-band">
- <div class="wrap">
- <div class="cta-plaque">
- <h2>Двигатель барахлит? Не тяните с диагностикой — позвоните или оставьте заявку.</h2>
- <div class="btn-row">
- <a href="tel:+79253202111" class="btn on-dark" style="border-radius:100px;">+7 (925) 320-21-11</a>
- <a href="#calc" class="btn ghost" style="border-radius:100px;border-color:rgba(255,255,255,0.4);color:#fff;">Оставить заявку</a>
- </div>
- </div>
- </div>
+  <div class="wrap">
+    <div class="cta-plaque">
+      <h2>Двигатель барахлит? Не тяните с диагностикой — позвоните или оставьте заявку.</h2>
+      <div class="btn-row">
+        <a href="tel:+79253202111" class="btn on-dark" style="border-radius:100px;">+7 (925) 320-21-11</a>
+        <a href="#calc" class="btn ghost" style="border-radius:100px;border-color:rgba(255,255,255,0.4);color:#fff;">Оставить заявку</a>
+      </div>
+    </div>
+  </div>
 </section>
 
 <footer id="contacts">
- <div class="wrap">
- <a href="tel:+79253202111" class="foot-cta-pill">Позвонить: +7 (925) 320-21-11</a>
- <div class="foot-tiles">
- <a href="mailto:karsto1@yandex.ru" class="foot-tile"><span class="ico">✉</span> karsto1@yandex.ru</a>
- <a href="#calc" class="foot-tile"><span class="ico">→</span> Оставить заявку на сайте</a>
- </div>
- <div class="foot-top">
- <div class="foot-brand">
- <a href="#top" class="logo" onclick="event.preventDefault(); window.scrollTo({top:0,behavior:'smooth'});" style="cursor:pointer;"><img src="https://karsto1.ru/wp-content/uploads/2023/05/logo-1.svg" alt="KARSTO1" style="height:34px;display:block;filter:brightness(0) invert(1);"></a>
- <p>Ремонт и восстановление бензиновых и дизельных двигателей любой сложности. На рынке с 2015 года.</p>
- <div class="foot-contacts">
- <a href="tel:+79253202111">+7 (925) 320-21-11</a>
- <a href="mailto:karsto1@yandex.ru">karsto1@yandex.ru</a>
- <div class="addr">г. Москва, Проезд Добролюбова, 6а стр15 · м. Бутырская</div>
- <div class="addr">г. Мытищи, Силикатная ул, 51к3 · м. Медведково</div>
- <div class="addr">пн–вс, 11:00–23:00</div>
- </div>
- <div class="foot-legal">
- <a href="#">Политика в отношении обработки персональных данных</a>
- <a href="#">Согласие на обработку персональных данных</a>
- <a href="#">Политика использования файлов cookie</a>
- <a href="#">Политика конфиденциальности</a>
- </div>
- </div>
- <div class="foot-col">
- <h5>Марки</h5>
- <div class="foot-brands" id="foot-brands"></div>
- </div>
- <div class="foot-col">
- <h5>Меню</h5>
- <div class="foot-menu">
- <a href="#services">Услуги</a>
- <a href="#advantages">Преимущества</a>
- <a href="#reviews">Отзывы</a>
- <a href="#contacts">Контакты</a>
- </div>
- </div>
- </div>
- <div class="foot-bottom">
- <div>KARSTO1, © 2015–2026</div>
- <div>Прототип редизайна — макет для согласования</div>
- </div>
- </div>
+  <div class="wrap">
+    <a href="tel:+79253202111" class="foot-cta-pill">Позвонить: +7 (925) 320-21-11</a>
+    <div class="foot-tiles">
+      <a href="mailto:karsto1@yandex.ru" class="foot-tile"><span class="ico">✉</span> karsto1@yandex.ru</a>
+      <a href="#calc" class="foot-tile"><span class="ico">→</span> Оставить заявку на сайте</a>
+    </div>
+    <div class="foot-top">
+      <div class="foot-brand">
+        <a href="#top" class="logo" onclick="event.preventDefault(); window.scrollTo({top:0,behavior:'smooth'});" style="cursor:pointer;"><img src="https://karsto1.ru/wp-content/uploads/2023/05/logo-1.svg" alt="KARSTO1" style="height:34px;display:block;filter:brightness(0) invert(1);"></a>
+        <p>Ремонт и восстановление бензиновых и дизельных двигателей любой сложности. На рынке с 2015 года.</p>
+        <div class="foot-contacts">
+          <a href="tel:+79253202111">+7 (925) 320-21-11</a>
+          <a href="mailto:karsto1@yandex.ru">karsto1@yandex.ru</a>
+          <div class="addr">г. Москва, Проезд Добролюбова, 6а стр15 · м. Бутырская</div>
+          <div class="addr">г. Мытищи, Силикатная ул, 51к3 · м. Медведково</div>
+          <div class="addr">пн–вс, 11:00–23:00</div>
+        </div>
+        <div class="foot-legal">
+          <a href="#">Политика в отношении обработки персональных данных</a>
+          <a href="#">Согласие на обработку персональных данных</a>
+          <a href="#">Политика использования файлов cookie</a>
+          <a href="#">Политика конфиденциальности</a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h5>Марки</h5>
+        <div class="foot-brands" id="foot-brands"></div>
+      </div>
+      <div class="foot-col">
+        <h5>Меню</h5>
+        <div class="foot-menu">
+          <a href="#services">Услуги</a>
+          <a href="#advantages">Преимущества</a>
+          <a href="#reviews">Отзывы</a>
+          <a href="#contacts">Контакты</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div>KARSTO1, © 2015–2026</div>
+      <div>Прототип редизайна — макет для согласования</div>
+    </div>
+  </div>
 </footer>
 
 <script>
 const introLoader = document.getElementById('intro-loader');
 if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
- introLoader.remove();
+  introLoader.remove();
 } else {
- document.body.classList.add('intro-lock');
- window.addEventListener('load', () => {
- setTimeout(() => {
- introLoader.classList.add('hide');
- document.body.classList.remove('intro-lock');
- setTimeout(() => introLoader.remove(), 550);
- }, 1600);
- });
+  document.body.classList.add('intro-lock');
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      introLoader.classList.add('hide');
+      document.body.classList.remove('intro-lock');
+      setTimeout(() => introLoader.remove(), 550);
+    }, 1600);
+  });
 }
 
 const brands = ["Audi","BMW","Cadillac","Chevrolet","Ford","Hyundai","Infiniti","Kia","Lexus","Mazda","Mercedes","Mini","Mitsubishi","Nissan","Porsche","Skoda","Toyota","Volkswagen","Volvo"];
@@ -715,187 +715,187 @@ const footBrands = document.getElementById('foot-brands');
 footBrands.innerHTML = brands.map(b => `<a href="#">${b}</a>`).join('');
 
 const services = [
- {code:"УЗЕЛ-01", title:"Ремонт двигателя", price:"от 20 000 ₽", excerpt:"Диагностика и устранение неисправностей двигателя любой сложности.", full:[
- "Когда мотор вышел из строя, важно найти надёжный и качественный сервисный центр, способный выполнить профессиональный ремонт двигателя.",
- "Причин для ремонта двигателя множество: износ поршней и колец, износ хона и маслонасоса, проблемы с системой зажигания или топливной системой, повреждение головки блока цилиндров или прокладок.",
- "Мы диагностируем и ремонтируем двигатель любого типа, используя качественные запчасти и расходные материалы, которые гарантируют долговечность после ремонта."
- ]},
- {code:"УЗЕЛ-02", title:"Замена двигателя", price:"от 8 000 ₽", excerpt:"Замена силового агрегата, когда ремонт уже нецелесообразен.", full:[
- "Замена двигателя — дорогостоящая процедура, но не всегда её можно избежать. Стоимость зависит от марки и модели автомобиля, типа двигателя и его объёма.",
- "Иногда достаточно заменить один из компонентов двигателя, не меняя весь агрегат — это обходится дешевле, чем замена на контрактный или новый.",
- "Если двигатель повреждён настолько, что ремонт невозможен, мы подберём аналогичный или подходящий агрегат и проведём замену с гарантией на работы."
- ]},
- {code:"УЗЕЛ-03", title:"Замена цепи ГРМ", price:"от 5 000 ₽", excerpt:"Замена цепи газораспределительного механизма и успокоителей.", full:[
- "Цепь ГРМ — неотъемлемая часть двигателя, отвечающая за правильную работу клапанов и поршней. От её состояния зависит стабильная работа мотора и срок его службы.",
- "Стоимость замены зависит от типа двигателя, его мощности, особенностей модели и необходимости замены дополнительных элементов, таких как успокоители цепи.",
- "Мы не только меняем цепь ГРМ, но и проверяем другие системы двигателя, чтобы избежать проблем в будущем."
- ]},
- {code:"УЗЕЛ-04", title:"Замена ремня ГРМ", price:"от 4 000 ₽", excerpt:"Плановая замена ремня и роликов по регламенту производителя.", full:[
- "Ремень ГРМ обеспечивает синхронизацию работы коленчатого и распределительного валов. Его износ или обрыв могут привести к серьёзным повреждениям двигателя, поэтому замена проводится строго по регламенту.",
- "Стоимость зависит от марки и модели автомобиля, объёма и типа двигателя. Вместе с ремнём мы меняем ролики, подверженные износу.",
- "Работа связана с демонтажем многих элементов двигателя и требует высокой квалификации — мы выполняем её аккуратно, чтобы избежать проблем в будущем."
- ]},
- {code:"УЗЕЛ-05", title:"Капитальный ремонт двигателя", price:"от 30 000 ₽", excerpt:"Полная разборка, дефектовка и замена изношенных узлов.", full:[
- "Капитальный ремонт — один из самых сложных видов ремонта: полная разборка двигателя, дефектовка и замена всех необходимых деталей. После него двигатель должен работать как новый.",
- "Заменяются изношенные поршни, кольца, вкладыши, коренные и шатунные вкладыши, устраняются повреждения ГБЦ, коленвала и других элементов. Дополнительно проверяются системы охлаждения, смазки, зажигания и топливная система.",
- "Капремонт может понадобиться как бензиновым, так и дизельным двигателям — при попадании грязи, гидроударе или перегреве из-за нехватки масла или охлаждающей жидкости."
- ]},
- {code:"УЗЕЛ-06", title:"Ремонт ГБЦ", price:"от 8 000 ₽", excerpt:"Восстановление головки блока цилиндров.", full:[
- "Головка блока цилиндров — одна из важнейших частей двигателя: она управляет впрыском топлива, распределением воздуха и топлива, а также выпуском отработавших газов.",
- "Чаще всего причиной неисправности ГБЦ становится перегрев двигателя или нарушение работы системы смазки. Ремонт включает замену неисправных деталей, шлифовку поверхностей и проверку на герметичность.",
- "Перед началом работ мы проводим дефектовку, чтобы точно определить источник проблемы и не тратить бюджет впустую."
- ]},
- {code:"УЗЕЛ-07", title:"Замена прокладки ГБЦ", price:"от 5 500 ₽", excerpt:"Устранение утечек масла и охлаждающей жидкости.", full:[
- "Прокладка ГБЦ гарантирует долговечность и безопасность двигателя. Когда она изнашивается, это приводит к утечкам масла и охлаждающей жидкости, что вызывает перегрев и поломку.",
- "Замена требуется, если прокладка утратила уплотняющие свойства или если у головки блока цилиндров нарушена плоскость, есть трещины или износ.",
- "Работу проводим с подбором качественной прокладки и в соответствии с требованиями производителя, с гарантией на выполненные работы."
- ]},
- {code:"УЗЕЛ-08", title:"Перегрев двигателя", price:"от 25 000 ₽", excerpt:"Диагностика и ремонт после перегрева мотора.", full:[
- "Ремонт после перегрева — одна из самых дорогих процедур: внутренние детали мотора выходят из строя. Причины перегрева разные — от низкого уровня жидкости в системе охлаждения до неисправного термостата.",
- "При первых признаках перегрева (рост температуры, посторонний запах, шум) важно остановить автомобиль и дать двигателю остыть, а затем провести диагностику.",
- "Мы определяем, какие детали двигателя нуждаются в замене, и проводим ремонт — это позволяет продлить срок службы автомобиля без покупки нового двигателя."
- ]},
- {code:"УЗЕЛ-09", title:"Замена поршневой группы", price:"от 10 000 ₽", excerpt:"Замена поршней, колец и связанных элементов.", full:[
- "Замена поршневой группы требуется при серьёзном ремонте двигателя — часто из-за перегрева, который приводит к необходимости замены поршней и других элементов группы.",
- "Это трудоёмкий процесс, который требует знаний и опыта. Цена зависит от типа автомобиля, его возраста и состояния, а также сложности работ.",
- "Мы проводим полную диагностику перед началом работ, чтобы точно оценить объём и стоимость ремонта."
- ]},
- {code:"УЗЕЛ-10", title:"Замена маслосъёмных колпачков", price:"от 8 000 ₽", excerpt:"Устранение повышенного расхода масла и дыма из выхлопа.", full:[
- "Маслосъёмные колпачки — уплотнительные манжеты клапанов, предотвращающие попадание масла в цилиндр. Их износ приводит к повышенному расходу масла и дыму из выхлопной трубы.",
- "Если проблему не устранить, это может привести к серьёзным повреждениям двигателя и дорогостоящему ремонту.",
- "Замена обычно занимает не более нескольких часов и требует определённых навыков и инструментов — мы выполняем её быстро и качественно."
- ]},
- {code:"УЗЕЛ-11", title:"Замена помпы", price:"от 1 000 ₽", excerpt:"Замена водяного насоса системы охлаждения.", full:[
- "Помпа обеспечивает эффективное охлаждение двигателя. Если она не работает должным образом, это приводит к перегреву и повреждению других компонентов.",
- "Для дизельных и бензиновых автомобилей нужны разные типы помп — мы подбираем подходящую деталь для конкретной марки и модели.",
- "Замену часто совмещаем с заменой ремня или цепи ГРМ, если помпа потекла в процессе их обслуживания."
- ]},
- {code:"УЗЕЛ-12", title:"Замена гидроопоры двигателя", price:"от 1 300 ₽", excerpt:"Устранение вибраций и посторонних шумов двигателя.", full:[
- "Двигатель крепится к кузову на гидравлических опорах, которые уменьшают вибрации и шумы. Со временем гидроопора изнашивается — появляется вибрация, скрипы, дёрганье.",
- "Если вы заметили утечку масла из гидроопоры или неустойчивую работу двигателя, вероятно, нужна замена.",
- "Работа на дизельном двигателе может отличаться от бензинового — уточняем детали при диагностике конкретного автомобиля."
- ]},
- {code:"УЗЕЛ-13", title:"Ремонт турбины", price:"от 3 500 ₽", excerpt:"Диагностика и восстановление турбокомпрессора.", full:[
- "Признаки неисправности турбины: снижение мощности двигателя, рост расхода топлива, повышенный шум и вибрация при работе.",
- "Перед ремонтом проводим диагностику турбины, определяем причину поломки, разбираем турбину и заменяем повреждённые детали. При сильном повреждении может потребоваться полная замена.",
- "Восстановление турбины часто позволяет сэкономить по сравнению с покупкой новой — но важно доверить это профессионалам с нужным оборудованием."
- ]},
- {code:"УЗЕЛ-14", title:"Ремонт ТНВД", price:"от 4 000 ₽", excerpt:"Ремонт топливного насоса высокого давления.", full:[
- "ТНВД управляет количеством топлива, поступающего в форсунки или инжекторы, и обеспечивает надлежащую работу двигателя. При выходе из строя двигатель перестаёт работать должным образом.",
- "Если автомобиль стал работать нестабильно или появились проблемы с топливной системой — вероятно, требуется ремонт или замена насоса высокого давления.",
- "Наши механики обладают опытом работы с топливными системами и проводят диагностику, чтобы точно определить причину проблемы."
- ]},
- {code:"УЗЕЛ-15", title:"Замена свечей накаливания", price:"от 1 500 ₽", excerpt:"Обслуживание системы холодного пуска дизеля.", full:[
- "Свечи накала нужны для запуска дизельного двигателя при низких температурах — они нагревают воздух в камере сгорания. Со временем свечи выходят из строя, и замена становится необходимой.",
- "Как правило, замена требуется каждые 80–100 тысяч км пробега или если двигатель стал плохо заводиться в холодную погоду.",
- "Работу проводим аккуратно в специализированном сервисе — если обломить свечу при откручивании, ремонт может оказаться дорогостоящим."
- ]},
- {code:"УЗЕЛ-16", title:"Замена теплообменника", price:"от 3 000 ₽", excerpt:"Замена узла системы охлаждения двигателя.", full:[
- "Теплообменник отвечает за перенос тепла из двигателя в атмосферу и играет ключевую роль в поддержании оптимальной температуры двигателя.",
- "Необходимость замены возникает при повреждении, износе или неполадках теплообменника, а также при установке системы дополнительного охлаждения.",
- "После установки нового теплообменника проводим тестирование системы охлаждения, чтобы убедиться в её корректной работе."
- ]},
- {code:"УЗЕЛ-17", title:"Замена термостата", price:"от 1 000 ₽", excerpt:"Восстановление температурного режима двигателя.", full:[
- "Термостат поддерживает температуру охлаждающей жидкости в оптимальном диапазоне. Его неисправность может привести к перегреву и повреждению головки блока цилиндров.",
- "Признаки неисправности — слишком быстрый или слишком медленный нагрев двигателя, а также неравномерный нагрев отдельных его частей.",
- "Замена термостата — это обслуживание, а не ремонт двигателя, и своевременная замена продлевает срок его эксплуатации."
- ]}
+  {code:"УЗЕЛ-01", title:"Ремонт двигателя", price:"от 20 000 ₽", excerpt:"Диагностика и устранение неисправностей двигателя любой сложности.", full:[
+    "Когда мотор вышел из строя, важно найти надёжный и качественный сервисный центр, способный выполнить профессиональный ремонт двигателя.",
+    "Причин для ремонта двигателя множество: износ поршней и колец, износ хона и маслонасоса, проблемы с системой зажигания или топливной системой, повреждение головки блока цилиндров или прокладок.",
+    "Мы диагностируем и ремонтируем двигатель любого типа, используя качественные запчасти и расходные материалы, которые гарантируют долговечность после ремонта."
+  ]},
+  {code:"УЗЕЛ-02", title:"Замена двигателя", price:"от 8 000 ₽", excerpt:"Замена силового агрегата, когда ремонт уже нецелесообразен.", full:[
+    "Замена двигателя — дорогостоящая процедура, но не всегда её можно избежать. Стоимость зависит от марки и модели автомобиля, типа двигателя и его объёма.",
+    "Иногда достаточно заменить один из компонентов двигателя, не меняя весь агрегат — это обходится дешевле, чем замена на контрактный или новый.",
+    "Если двигатель повреждён настолько, что ремонт невозможен, мы подберём аналогичный или подходящий агрегат и проведём замену с гарантией на работы."
+  ]},
+  {code:"УЗЕЛ-03", title:"Замена цепи ГРМ", price:"от 5 000 ₽", excerpt:"Замена цепи газораспределительного механизма и успокоителей.", full:[
+    "Цепь ГРМ — неотъемлемая часть двигателя, отвечающая за правильную работу клапанов и поршней. От её состояния зависит стабильная работа мотора и срок его службы.",
+    "Стоимость замены зависит от типа двигателя, его мощности, особенностей модели и необходимости замены дополнительных элементов, таких как успокоители цепи.",
+    "Мы не только меняем цепь ГРМ, но и проверяем другие системы двигателя, чтобы избежать проблем в будущем."
+  ]},
+  {code:"УЗЕЛ-04", title:"Замена ремня ГРМ", price:"от 4 000 ₽", excerpt:"Плановая замена ремня и роликов по регламенту производителя.", full:[
+    "Ремень ГРМ обеспечивает синхронизацию работы коленчатого и распределительного валов. Его износ или обрыв могут привести к серьёзным повреждениям двигателя, поэтому замена проводится строго по регламенту.",
+    "Стоимость зависит от марки и модели автомобиля, объёма и типа двигателя. Вместе с ремнём мы меняем ролики, подверженные износу.",
+    "Работа связана с демонтажем многих элементов двигателя и требует высокой квалификации — мы выполняем её аккуратно, чтобы избежать проблем в будущем."
+  ]},
+  {code:"УЗЕЛ-05", title:"Капитальный ремонт двигателя", price:"от 30 000 ₽", excerpt:"Полная разборка, дефектовка и замена изношенных узлов.", full:[
+    "Капитальный ремонт — один из самых сложных видов ремонта: полная разборка двигателя, дефектовка и замена всех необходимых деталей. После него двигатель должен работать как новый.",
+    "Заменяются изношенные поршни, кольца, вкладыши, коренные и шатунные вкладыши, устраняются повреждения ГБЦ, коленвала и других элементов. Дополнительно проверяются системы охлаждения, смазки, зажигания и топливная система.",
+    "Капремонт может понадобиться как бензиновым, так и дизельным двигателям — при попадании грязи, гидроударе или перегреве из-за нехватки масла или охлаждающей жидкости."
+  ]},
+  {code:"УЗЕЛ-06", title:"Ремонт ГБЦ", price:"от 8 000 ₽", excerpt:"Восстановление головки блока цилиндров.", full:[
+    "Головка блока цилиндров — одна из важнейших частей двигателя: она управляет впрыском топлива, распределением воздуха и топлива, а также выпуском отработавших газов.",
+    "Чаще всего причиной неисправности ГБЦ становится перегрев двигателя или нарушение работы системы смазки. Ремонт включает замену неисправных деталей, шлифовку поверхностей и проверку на герметичность.",
+    "Перед началом работ мы проводим дефектовку, чтобы точно определить источник проблемы и не тратить бюджет впустую."
+  ]},
+  {code:"УЗЕЛ-07", title:"Замена прокладки ГБЦ", price:"от 5 500 ₽", excerpt:"Устранение утечек масла и охлаждающей жидкости.", full:[
+    "Прокладка ГБЦ гарантирует долговечность и безопасность двигателя. Когда она изнашивается, это приводит к утечкам масла и охлаждающей жидкости, что вызывает перегрев и поломку.",
+    "Замена требуется, если прокладка утратила уплотняющие свойства или если у головки блока цилиндров нарушена плоскость, есть трещины или износ.",
+    "Работу проводим с подбором качественной прокладки и в соответствии с требованиями производителя, с гарантией на выполненные работы."
+  ]},
+  {code:"УЗЕЛ-08", title:"Перегрев двигателя", price:"от 25 000 ₽", excerpt:"Диагностика и ремонт после перегрева мотора.", full:[
+    "Ремонт после перегрева — одна из самых дорогих процедур: внутренние детали мотора выходят из строя. Причины перегрева разные — от низкого уровня жидкости в системе охлаждения до неисправного термостата.",
+    "При первых признаках перегрева (рост температуры, посторонний запах, шум) важно остановить автомобиль и дать двигателю остыть, а затем провести диагностику.",
+    "Мы определяем, какие детали двигателя нуждаются в замене, и проводим ремонт — это позволяет продлить срок службы автомобиля без покупки нового двигателя."
+  ]},
+  {code:"УЗЕЛ-09", title:"Замена поршневой группы", price:"от 10 000 ₽", excerpt:"Замена поршней, колец и связанных элементов.", full:[
+    "Замена поршневой группы требуется при серьёзном ремонте двигателя — часто из-за перегрева, который приводит к необходимости замены поршней и других элементов группы.",
+    "Это трудоёмкий процесс, который требует знаний и опыта. Цена зависит от типа автомобиля, его возраста и состояния, а также сложности работ.",
+    "Мы проводим полную диагностику перед началом работ, чтобы точно оценить объём и стоимость ремонта."
+  ]},
+  {code:"УЗЕЛ-10", title:"Замена маслосъёмных колпачков", price:"от 8 000 ₽", excerpt:"Устранение повышенного расхода масла и дыма из выхлопа.", full:[
+    "Маслосъёмные колпачки — уплотнительные манжеты клапанов, предотвращающие попадание масла в цилиндр. Их износ приводит к повышенному расходу масла и дыму из выхлопной трубы.",
+    "Если проблему не устранить, это может привести к серьёзным повреждениям двигателя и дорогостоящему ремонту.",
+    "Замена обычно занимает не более нескольких часов и требует определённых навыков и инструментов — мы выполняем её быстро и качественно."
+  ]},
+  {code:"УЗЕЛ-11", title:"Замена помпы", price:"от 1 000 ₽", excerpt:"Замена водяного насоса системы охлаждения.", full:[
+    "Помпа обеспечивает эффективное охлаждение двигателя. Если она не работает должным образом, это приводит к перегреву и повреждению других компонентов.",
+    "Для дизельных и бензиновых автомобилей нужны разные типы помп — мы подбираем подходящую деталь для конкретной марки и модели.",
+    "Замену часто совмещаем с заменой ремня или цепи ГРМ, если помпа потекла в процессе их обслуживания."
+  ]},
+  {code:"УЗЕЛ-12", title:"Замена гидроопоры двигателя", price:"от 1 300 ₽", excerpt:"Устранение вибраций и посторонних шумов двигателя.", full:[
+    "Двигатель крепится к кузову на гидравлических опорах, которые уменьшают вибрации и шумы. Со временем гидроопора изнашивается — появляется вибрация, скрипы, дёрганье.",
+    "Если вы заметили утечку масла из гидроопоры или неустойчивую работу двигателя, вероятно, нужна замена.",
+    "Работа на дизельном двигателе может отличаться от бензинового — уточняем детали при диагностике конкретного автомобиля."
+  ]},
+  {code:"УЗЕЛ-13", title:"Ремонт турбины", price:"от 3 500 ₽", excerpt:"Диагностика и восстановление турбокомпрессора.", full:[
+    "Признаки неисправности турбины: снижение мощности двигателя, рост расхода топлива, повышенный шум и вибрация при работе.",
+    "Перед ремонтом проводим диагностику турбины, определяем причину поломки, разбираем турбину и заменяем повреждённые детали. При сильном повреждении может потребоваться полная замена.",
+    "Восстановление турбины часто позволяет сэкономить по сравнению с покупкой новой — но важно доверить это профессионалам с нужным оборудованием."
+  ]},
+  {code:"УЗЕЛ-14", title:"Ремонт ТНВД", price:"от 4 000 ₽", excerpt:"Ремонт топливного насоса высокого давления.", full:[
+    "ТНВД управляет количеством топлива, поступающего в форсунки или инжекторы, и обеспечивает надлежащую работу двигателя. При выходе из строя двигатель перестаёт работать должным образом.",
+    "Если автомобиль стал работать нестабильно или появились проблемы с топливной системой — вероятно, требуется ремонт или замена насоса высокого давления.",
+    "Наши механики обладают опытом работы с топливными системами и проводят диагностику, чтобы точно определить причину проблемы."
+  ]},
+  {code:"УЗЕЛ-15", title:"Замена свечей накаливания", price:"от 1 500 ₽", excerpt:"Обслуживание системы холодного пуска дизеля.", full:[
+    "Свечи накала нужны для запуска дизельного двигателя при низких температурах — они нагревают воздух в камере сгорания. Со временем свечи выходят из строя, и замена становится необходимой.",
+    "Как правило, замена требуется каждые 80–100 тысяч км пробега или если двигатель стал плохо заводиться в холодную погоду.",
+    "Работу проводим аккуратно в специализированном сервисе — если обломить свечу при откручивании, ремонт может оказаться дорогостоящим."
+  ]},
+  {code:"УЗЕЛ-16", title:"Замена теплообменника", price:"от 3 000 ₽", excerpt:"Замена узла системы охлаждения двигателя.", full:[
+    "Теплообменник отвечает за перенос тепла из двигателя в атмосферу и играет ключевую роль в поддержании оптимальной температуры двигателя.",
+    "Необходимость замены возникает при повреждении, износе или неполадках теплообменника, а также при установке системы дополнительного охлаждения.",
+    "После установки нового теплообменника проводим тестирование системы охлаждения, чтобы убедиться в её корректной работе."
+  ]},
+  {code:"УЗЕЛ-17", title:"Замена термостата", price:"от 1 000 ₽", excerpt:"Восстановление температурного режима двигателя.", full:[
+    "Термостат поддерживает температуру охлаждающей жидкости в оптимальном диапазоне. Его неисправность может привести к перегреву и повреждению головки блока цилиндров.",
+    "Признаки неисправности — слишком быстрый или слишком медленный нагрев двигателя, а также неравномерный нагрев отдельных его частей.",
+    "Замена термостата — это обслуживание, а не ремонт двигателя, и своевременная замена продлевает срок его эксплуатации."
+  ]}
 ];
 
 const svcGrid = document.getElementById('svc-grid');
 svcGrid.innerHTML = services.map((s,i) => {
- const m = s.price.match(/от ([\d\s]+) (.+)/);
- const num = m ? m[1] : s.price;
- const cur = m ? m[2] : '';
- return `
- <div class="svc-card" id="svc-${i}" onclick="openSvcModal(${i})">
- <div class="svc-top">
- <span class="svc-code">${s.code}</span>
- </div>
- <div class="svc-price-big"><span class="from">от</span><span class="num">${num}</span><span class="cur">${cur}</span></div>
- <h4>${s.title}</h4>
- <span class="svc-toggle">
- Подробнее <span class="arrow">→</span>
- </span>
- </div>
+  const m = s.price.match(/от ([\d\s]+) (.+)/);
+  const num = m ? m[1] : s.price;
+  const cur = m ? m[2] : '';
+  return `
+  <div class="svc-card" id="svc-${i}" onclick="openSvcModal(${i})">
+    <div class="svc-top">
+      <span class="svc-code">${s.code}</span>
+    </div>
+    <div class="svc-price-big"><span class="from">от</span><span class="num">${num}</span><span class="cur">${cur}</span></div>
+    <h4>${s.title}</h4>
+    <span class="svc-toggle">
+      Подробнее <span class="arrow">→</span>
+    </span>
+  </div>
 `;
 }).join('');
 
 function openSvcModal(i){
- const s = services[i];
- document.getElementById('svc-modal-code').textContent = s.code;
- document.getElementById('svc-modal-title').textContent = s.title;
- document.getElementById('svc-modal-price').textContent = s.price;
- document.getElementById('svc-modal-body').innerHTML = s.full.map(p=>`<p>${p}</p>`).join('');
- document.getElementById('svc-modal-overlay').classList.add('open');
- document.body.style.overflow = 'hidden';
+  const s = services[i];
+  document.getElementById('svc-modal-code').textContent = s.code;
+  document.getElementById('svc-modal-title').textContent = s.title;
+  document.getElementById('svc-modal-price').textContent = s.price;
+  document.getElementById('svc-modal-body').innerHTML = s.full.map(p=>`<p>${p}</p>`).join('');
+  document.getElementById('svc-modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
 }
 function closeSvcModal(){
- document.getElementById('svc-modal-overlay').classList.remove('open');
- document.body.style.overflow = '';
+  document.getElementById('svc-modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
 }
 document.addEventListener('keydown', e => { if(e.key === 'Escape') closeSvcModal(); });
 
 const reviews = [
- {name:"Анатолий", date:"01 апреля 2026", stars:5, text:"Уже много лет обслуживаю свои автомобили только в этом автосервисе у Карена. Всё делают аккуратно и на совесть, ничего лишнего не предлагают. За все годы ни разу не было нареканий."},
- {name:"Антон Р.", date:"30 марта 2026", stars:5, text:"Обслуживаю здесь сразу несколько своих машин и всегда доволен результатом. Каждый раз подробно рассказывают о состоянии автомобиля, без навязанных ремонтов."},
- {name:"Даниил Капран", date:"20 марта 2026", stars:5, text:"Привожу сюда обе свои машины последние полгода, нареканий по сервису нет. Недавно меняли насос ГУР — справились оперативно и на совесть."},
- {name:"Alexey Dmitriev", date:"20 марта 2026", stars:5, text:"Обслуживаю свой автомобиль здесь не первый год, считаю сервис лучшим из всех, где мне приходилось бывать. Ребята работают оперативно, профессионально и честно."},
- {name:"Гаджимагомед Гаджикеримов", date:"16 января 2026", stars:5, text:"Лучший автосервис в московской области, подобрали всё сами, дешевле чем я выбирал бы сам. Машина у меня редкая, но со всем разобрались и сделали в лучшем виде."},
- {name:"Татьяна Васина", date:"28 ноября 2025", stars:5, text:"Отличный автосервис! Нравится, что тут работают мастера своего дела и приятные люди. Честные цены и грамотный подход к ремонту и обслуживанию авто."},
- {name:"Olga Bakhlina", date:"17 ноября 2025", stars:5, text:"Прекрасное отношение к клиентам. Самые сложные кейсы прекрасно решают. Есть компьютеры и технологические штуки, которые читают вашу машину."},
- {name:"Константин К.", date:"15 ноября 2025", stars:5, text:"Прекрасное обслуживание! Менеджер всегда на связи. Работа проведена быстро и качественно."},
- {name:"Максим Васильев", date:"05 ноября 2025", stars:5, text:"Лучший сервис по ремонту в Московской области, цены адекватные, качество на высшем уровне. Несколько лет не мог победить болячки своего Туарега, объездив больше 20 сервисов — здесь всё починили за неделю."}
+  {name:"Анатолий", date:"01 апреля 2026", stars:5, text:"Уже много лет обслуживаю свои автомобили только в этом автосервисе у Карена. Всё делают аккуратно и на совесть, ничего лишнего не предлагают. За все годы ни разу не было нареканий."},
+  {name:"Антон Р.", date:"30 марта 2026", stars:5, text:"Обслуживаю здесь сразу несколько своих машин и всегда доволен результатом. Каждый раз подробно рассказывают о состоянии автомобиля, без навязанных ремонтов."},
+  {name:"Даниил Капран", date:"20 марта 2026", stars:5, text:"Привожу сюда обе свои машины последние полгода, нареканий по сервису нет. Недавно меняли насос ГУР — справились оперативно и на совесть."},
+  {name:"Alexey Dmitriev", date:"20 марта 2026", stars:5, text:"Обслуживаю свой автомобиль здесь не первый год, считаю сервис лучшим из всех, где мне приходилось бывать. Ребята работают оперативно, профессионально и честно."},
+  {name:"Гаджимагомед Гаджикеримов", date:"16 января 2026", stars:5, text:"Лучший автосервис в московской области, подобрали всё сами, дешевле чем я выбирал бы сам. Машина у меня редкая, но со всем разобрались и сделали в лучшем виде."},
+  {name:"Татьяна Васина", date:"28 ноября 2025", stars:5, text:"Отличный автосервис! Нравится, что тут работают мастера своего дела и приятные люди. Честные цены и грамотный подход к ремонту и обслуживанию авто."},
+  {name:"Olga Bakhlina", date:"17 ноября 2025", stars:5, text:"Прекрасное отношение к клиентам. Самые сложные кейсы прекрасно решают. Есть компьютеры и технологические штуки, которые читают вашу машину."},
+  {name:"Константин К.", date:"15 ноября 2025", stars:5, text:"Прекрасное обслуживание! Менеджер всегда на связи. Работа проведена быстро и качественно."},
+  {name:"Максим Васильев", date:"05 ноября 2025", stars:5, text:"Лучший сервис по ремонту в Московской области, цены адекватные, качество на высшем уровне. Несколько лет не мог победить болячки своего Туарега, объездив больше 20 сервисов — здесь всё починили за неделю."}
 ];
 
 const revGrid = document.getElementById('rev-grid');
 revGrid.innerHTML = reviews.map(r => `
- <div class="rev-card">
- <div class="rev-top">
- <div class="rev-who">
- <div class="rev-avatar">${r.name.trim()[0]}</div>
- <span class="rev-name">${r.name}</span>
- </div>
- <span class="rev-date mono">${r.date}</span>
- </div>
- <div class="rev-stars">${'★'.repeat(r.stars)}</div>
- <div class="rev-text">${r.text}</div>
- </div>
+  <div class="rev-card">
+    <div class="rev-top">
+      <div class="rev-who">
+        <div class="rev-avatar">${r.name.trim()[0]}</div>
+        <span class="rev-name">${r.name}</span>
+      </div>
+      <span class="rev-date mono">${r.date}</span>
+    </div>
+    <div class="rev-stars">${'★'.repeat(r.stars)}</div>
+    <div class="rev-text">${r.text}</div>
+  </div>
 `).join('');
 
 const keywordMap = [
- {kw:["перегрев"], price:"от 25 000 ₽"},
- {kw:["стук","поршн"], price:"от 10 000 ₽"},
- {kw:["дым","колпач"], price:"от 8 000 ₽"},
- {kw:["течёт","течет","прокладк"], price:"от 5 500 ₽"},
- {kw:["не заводится","свеч"], price:"от 1 500 ₽"},
- {kw:["шум","гидроопор","вибрац"], price:"от 1 300 ₽"},
- {kw:["турбин"], price:"от 3 500 ₽"},
- {kw:["тнвд","форсунк"], price:"от 4 000 ₽"},
- {kw:["термостат"], price:"от 1 000 ₽"},
- {kw:["капитал"], price:"от 30 000 ₽"}
+  {kw:["перегрев"], price:"от 25 000 ₽"},
+  {kw:["стук","поршн"], price:"от 10 000 ₽"},
+  {kw:["дым","колпач"], price:"от 8 000 ₽"},
+  {kw:["течёт","течет","прокладк"], price:"от 5 500 ₽"},
+  {kw:["не заводится","свеч"], price:"от 1 500 ₽"},
+  {kw:["шум","гидроопор","вибрац"], price:"от 1 300 ₽"},
+  {kw:["турбин"], price:"от 3 500 ₽"},
+  {kw:["тнвд","форсунк"], price:"от 4 000 ₽"},
+  {kw:["термостат"], price:"от 1 000 ₽"},
+  {kw:["капитал"], price:"от 30 000 ₽"}
 ];
 const calcIssue = document.getElementById('calc-issue');
 const calcPrice = document.getElementById('calc-price');
 calcIssue.addEventListener('input', () => {
- const v = calcIssue.value.trim().toLowerCase();
- if(!v){ calcPrice.textContent = 'от 8 000 ₽'; return; }
- const match = keywordMap.find(m => m.kw.some(k => v.includes(k)));
- calcPrice.textContent = match ? match.price : 'уточним на диагностике';
+  const v = calcIssue.value.trim().toLowerCase();
+  if(!v){ calcPrice.textContent = 'от 8 000 ₽'; return; }
+  const match = keywordMap.find(m => m.kw.some(k => v.includes(k)));
+  calcPrice.textContent = match ? match.price : 'уточним на диагностике';
 });
 
 if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
- const revealTargets = document.querySelectorAll('.section-head, .calc-panel, .svc-grid, .adv-gradient-bar, .rev-grid, .cta-plaque');
- revealTargets.forEach(el => el.classList.add('reveal'));
- const io = new IntersectionObserver((entries) => {
- entries.forEach(entry => {
- if(entry.isIntersecting){
- entry.target.classList.add('reveal-in');
- io.unobserve(entry.target);
- }
- });
- }, {threshold:0.12, rootMargin:'0px 0px -60px 0px'});
- revealTargets.forEach(el => io.observe(el));
+  const revealTargets = document.querySelectorAll('.section-head, .calc-panel, .svc-grid, .adv-gradient-bar, .rev-grid, .cta-plaque');
+  revealTargets.forEach(el => el.classList.add('reveal'));
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('reveal-in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.12, rootMargin:'0px 0px -60px 0px'});
+  revealTargets.forEach(el => io.observe(el));
 }
 </script>
 </body>
