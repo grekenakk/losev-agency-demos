@@ -367,7 +367,6 @@
  nav.primary{display:none;}
  .calc-panel{grid-template-columns:1fr;}
  .svc-grid{grid-template-columns:repeat(2,1fr);}
- .adv-grid{grid-template-columns:1fr 1fr;}
  .adv-gradient-bar{grid-template-columns:1fr 1fr;}
  .rev-grid{columns:2;}
  .foot-top{grid-template-columns:1fr;gap:36px;}
@@ -375,14 +374,76 @@
  }
  @media(max-width:640px){
  .wrap{padding:0 20px;}
- .field-row{grid-template-columns:1fr;}
- .svc-grid{grid-template-columns:1fr;}
- .adv-grid{grid-template-columns:1fr;}
- .adv-gradient-bar{grid-template-columns:1fr 1fr;}
+
+ /* Header: tighter pill, smaller logo, hide phone text, compact CTA */
+ header.main{margin:0 12px;top:12px;}
+ header.main .wrap{padding:9px 8px 9px 18px;}
+ header.main .logo img{height:32px !important;}
+ .header-right{gap:10px;}
+ .header-phone{display:none;}
+ header.main .btn{padding:11px 18px;font-size:13px;}
+
+ /* Hero: tighter padding, smaller rounded corners, narrower inner column */
+ .hero{padding:16px 12px 0;}
+ .hero-photo{border-radius:20px;min-height:440px;height:min(72vh,560px);}
+ .hero-inner{padding:0 18px;}
+ .hero h1{font-size:clamp(28px,8vw,40px);margin-bottom:26px;}
+ .hero-inner .hero-tag{font-size:11px;padding:7px 14px;margin-bottom:20px;}
+ .hero-cta-row .btn{padding:13px 22px;font-size:13.5px;}
+
+ /* Marquee */
+ .marquee-sec{padding:14px 12px 0;}
+ .marquee-track span{font-size:14px;padding:0 18px;}
+
+ /* Section rhythm */
+ section{padding:56px 0;}
+ .section-head{margin-bottom:32px;}
+ .section-head h2{font-size:clamp(26px,7vw,34px);}
+ .eyebrow{margin-bottom:14px;}
+
+ /* Calculator */
+ .calc-panel{border-radius:14px;}
+ .calc-form{padding:26px 22px;}
+ .calc-form h3{font-size:18px;margin-bottom:20px;}
+ .field-row{grid-template-columns:1fr;gap:16px;margin-bottom:16px;}
+ .calc-side{padding:26px 22px;gap:22px;}
+ .calc-stat-row .val{font-size:30px;}
+
+ /* Services grid + modal */
+ .svc-grid{grid-template-columns:1fr;gap:10px;}
+ .svc-card{padding:18px;}
+ .svc-cta-row{margin-top:32px;}
+ .svc-modal-overlay{padding:56px 14px 14px;}
+ .svc-modal{padding:24px;border-radius:16px;}
+ .svc-modal h3{font-size:19px;}
+ .svc-modal-close{top:14px;right:14px;}
+
+ /* Advantages */
+ .adv-gradient-bar{grid-template-columns:1fr 1fr;padding:24px;gap:20px;border-radius:16px;}
+ .adv-gradient-bar .g-stat .num{font-size:28px;}
+ .adv-gradient-bar .g-stat .lbl{font-size:12px;}
+
+ /* Reviews */
  .rev-grid{columns:1;}
- .hero .wrap{padding:64px 20px 0;}
- section{padding:64px 0;}
- .cta-plaque{flex-direction:column;align-items:flex-start;}
+
+ /* CTA plaque */
+ .cta-band{padding-bottom:56px;}
+ .cta-plaque{flex-direction:column;align-items:flex-start;padding:26px 22px;border-radius:14px;}
+ .cta-plaque .btn-row{width:100%;}
+ .cta-plaque .btn-row .btn{flex:1;text-align:center;}
+
+ /* Footer */
+ footer{padding:48px 0 24px;}
+ .foot-cta-pill{font-size:15px;padding:16px;letter-spacing:0.03em;}
+ .foot-tiles{grid-template-columns:1fr;margin-bottom:36px;}
+ .foot-tile{padding:16px 18px;font-size:13.5px;}
+ .foot-top{gap:28px;padding-bottom:32px;}
+ .foot-brands{grid-template-columns:repeat(2,1fr);}
+ .foot-bottom{flex-direction:column;align-items:flex-start;gap:6px;}
+ }
+ @media(max-width:400px){
+ .hero-cta-row{flex-direction:column;align-self:stretch;}
+ .hero-cta-row .btn{width:100%;}
  }
 </style>
 <link rel="preload" as="image" href="https://karsto1.ru/wp-content/uploads/2023/05/logo-1.svg">
