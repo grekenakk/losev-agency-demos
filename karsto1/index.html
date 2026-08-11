@@ -55,27 +55,77 @@
  display:inline-block;
  }
 
- /* ===== TOPBAR ===== */
- .topbar{background:var(--navy-deep);color:#c7d3ea;font-size:13px;}
- .topbar .wrap{display:flex;align-items:center;justify-content:space-between;padding:9px 32px;flex-wrap:wrap;gap:8px;}
- .topbar-locs{display:flex;gap:28px;flex-wrap:wrap;}
- .topbar-loc{display:flex;gap:8px;align-items:baseline;}
- .topbar-loc b{color:#fff;font-weight:500;}
- .topbar-loc span{opacity:0.65;font-size:12px;}
- .topbar-phone{display:flex;align-items:center;gap:12px;white-space:nowrap;}
- .topbar-phone a{color:#fff;font-weight:600;font-family:'JetBrains Mono',monospace;font-size:13.5px;}
- .topbar-phone .hours{opacity:0.6;font-size:12px;}
-
- /* ===== HEADER ===== */
- header.main{
- position:sticky;top:0;z-index:50;
- background:rgba(255,255,255,0.92);
- backdrop-filter:blur(10px);
- border-bottom:1px solid var(--line);
+ /* ===== HEADER (single clean bar, no separate topbar) ===== */
+ body{background:#fff;}
+ /* ===== PAGE-LOAD ENTRANCE ANIMATION (Ragged Edge-style: giant wordmark on vivid gradient) ===== */
+ #intro-loader{
+ position:fixed;inset:0;z-index:999;
+ display:flex;align-items:center;justify-content:center;
+ transition:opacity .5s ease, visibility .5s ease;
+ overflow:hidden;
  }
- header.main .wrap{display:flex;align-items:center;justify-content:space-between;padding:16px 32px;}
- .logo{display:flex;align-items:center;gap:10px;font-family:'Oswald',sans-serif;font-size:24px;font-weight:600;color:var(--navy-deep);letter-spacing:0.02em;}
- .logo .dot{width:9px;height:9px;border-radius:50%;background:var(--navy);display:inline-block;}
+ #intro-loader.hide{opacity:0;visibility:hidden;}
+ #intro-gradient-bg{
+ position:absolute;inset:-10%;
+ background:linear-gradient(120deg, #001c40 0%, #0f4694 30%, #3a8dff 52%, #5ea8ff 62%, #0f4694 78%, #001c40 100%);
+ background-size:280% 280%;
+ animation:introGradientMove 4s ease-in-out infinite;
+ }
+ @keyframes introGradientMove{
+ 0%{background-position:0% 30%;}
+ 50%{background-position:100% 70%;}
+ 100%{background-position:0% 30%;}
+ }
+ #intro-wordmark-big{
+ position:relative;width:min(70vw,720px);
+ transform:scale(0.72);opacity:0;
+ animation:introBigIn 1s cubic-bezier(.16,1,.3,1) forwards;animation-delay:.1s;
+ filter:drop-shadow(0 10px 60px rgba(0,20,48,0.35));
+ }
+ @keyframes introBigIn{
+ 0%{transform:scale(0.72);opacity:0;}
+ 60%{transform:scale(1.04);opacity:1;}
+ 100%{transform:scale(1);opacity:1;}
+ }
+ #intro-flash{
+ position:absolute;inset:0;background:#eaf2ff;opacity:0;pointer-events:none;
+ animation:introFlash .5s ease forwards;animation-delay:1.15s;
+ }
+ @keyframes introFlash{0%{opacity:0;}45%{opacity:0.85;}100%{opacity:0;}}
+ body.intro-lock{overflow:hidden;height:100vh;}
+ @keyframes fadeSlideDown{from{opacity:0;transform:translateY(-16px);}to{opacity:1;transform:translateY(0);}}
+ @keyframes fadeSlideUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+ @keyframes heroPhotoIn{from{opacity:0;transform:scale(1.06);}to{opacity:1;transform:scale(1);}}
+ @media (prefers-reduced-motion: no-preference){
+ header.main{animation:fadeSlideDown .7s cubic-bezier(.2,.8,.2,1) both;}
+ .hero-photo{animation:heroPhotoIn 1.1s cubic-bezier(.2,.8,.2,1) both;}
+ .hero-inner .hero-tag{animation:fadeSlideUp .7s cubic-bezier(.2,.8,.2,1) both; animation-delay:.35s;}
+ .hero h1{animation:fadeSlideUp .7s cubic-bezier(.2,.8,.2,1) both; animation-delay:.48s;}
+ .hero-cta-row{animation:fadeSlideUp .7s cubic-bezier(.2,.8,.2,1) both; animation-delay:.62s;}
+ .marquee-sec-inner{animation:fadeSlideUp .7s cubic-bezier(.2,.8,.2,1) both; animation-delay:.78s;}
+ .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.2,.8,.2,1), transform .7s cubic-bezier(.2,.8,.2,1);}
+ .reveal-in{opacity:1;transform:translateY(0);}
+ }
+
+ header.main{
+ position:sticky;top:16px;z-index:50;
+ margin:0 24px;
+ }
+ header.main .wrap{
+ max-width:calc(var(--maxw) - 48px);
+ display:flex;align-items:center;justify-content:space-between;
+ padding:14px 26px;
+ background:rgba(255,255,255,0.9);
+ backdrop-filter:blur(14px);
+ border:1px solid var(--line);
+ border-radius:100px;
+ box-shadow:0 8px 30px rgba(0,20,48,0.07);
+ }
+ .header-right{display:flex;align-items:center;gap:22px;}
+ .header-phone{display:flex;flex-direction:column;line-height:1.25;}
+ .header-phone a{font-weight:700;font-size:14px;color:var(--navy-deep);}
+ .header-phone span{font-size:11px;color:var(--muted);}
+ .logo{display:flex;align-items:center;font-family:'Oswald',sans-serif;font-size:22px;font-weight:600;color:var(--navy);letter-spacing:0.02em;}
  nav.primary{display:flex;gap:36px;}
  nav.primary a{font-size:14.5px;font-weight:500;color:var(--ink);position:relative;padding:4px 0;}
  nav.primary a:hover{color:var(--navy);}
@@ -85,7 +135,7 @@
  background:var(--navy);color:#fff;
  font-weight:600;font-size:14px;
  border:1px solid var(--navy);
- border-radius:2px;
+ border-radius:100px;
  transition:all .15s ease;
  white-space:nowrap;
  }
@@ -95,54 +145,54 @@
  .btn.on-dark{background:#fff;color:var(--navy-deep);border-color:#fff;}
  .btn.on-dark:hover{background:transparent;color:#fff;}
 
- /* ===== HERO ===== */
- .hero{position:relative;background:var(--navy-deep);color:#fff;overflow:hidden;}
- .hero-grid{
- position:absolute;inset:0;
- background-image:
- linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
- linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
- background-size:56px 56px;
- mask-image:linear-gradient(180deg, rgba(0,0,0,0.9), transparent 85%);
- }
+ /* ===== HERO (rounded floating card on white page, no edge-to-edge dark bars) ===== */
+ .hero{background:#fff;padding:28px 24px 0;}
  .hero-photo{
- position:absolute;inset:0;
- background:url('https://images.unsplash.com/photo-1487754180451-c456f719a1fc?q=80&w=1800&auto=format&fit=crop') center/cover;
- opacity:0.34;
+ position:relative;height:min(78vh,680px);min-height:480px;
+ max-width:var(--maxw);margin:0 auto;
+ border-radius:28px;overflow:hidden;
+ background:url('https://images.unsplash.com/photo-1487754180451-c456f719a1fc?q=80&w=1800&auto=format&fit=crop') center 38%/cover;
+ display:flex;flex-direction:column;justify-content:center;align-items:center;
+ text-align:center;
  }
- .hero-fade{position:absolute;inset:0;background:linear-gradient(100deg, var(--navy-deep) 28%, rgba(0,28,64,0.55) 62%, rgba(0,28,64,0.15) 100%);}
- .hero .wrap{position:relative;padding:96px 32px 0;}
- .hero-tag{
- font-family:'JetBrains Mono',monospace;font-size:12.5px;letter-spacing:0.14em;
- text-transform:uppercase;color:#8fb3e8;display:flex;align-items:center;gap:10px;margin-bottom:24px;
+ .hero-photo::before{
+ content:"";position:absolute;inset:0;
+ background:linear-gradient(180deg, rgba(0,20,48,0.5) 0%, rgba(0,20,48,0.32) 42%, rgba(0,20,48,0.68) 100%);
  }
- .hero-tag::before{content:"";width:22px;height:1px;background:#8fb3e8;}
+ .hero-inner{position:relative;max-width:760px;padding:0 32px;}
+ .hero-inner .hero-tag{
+ display:inline-flex;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.08em;
+ color:#e4ecfa;margin-bottom:26px;
+ background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.28);
+ border-radius:100px;padding:8px 18px;
+ }
  .hero h1{
- color:#fff;font-size:clamp(36px,5.2vw,64px);line-height:1.04;font-weight:600;
- max-width:820px;margin-bottom:28px;
+ font-family:'Oswald',sans-serif;font-style:normal;font-weight:700;text-transform:uppercase;
+ color:#fff;font-size:clamp(32px,5vw,56px);line-height:1.08;letter-spacing:0.005em;
+ margin-bottom:32px;
  }
- .hero p.lead{font-size:18px;line-height:1.55;color:#c7d3ea;max-width:560px;margin-bottom:36px;font-weight:400;}
- .hero-cta-row{display:flex;gap:16px;align-items:center;margin-bottom:64px;flex-wrap:wrap;}
- .hero-note{font-size:13px;color:#8ea3c9;font-family:'JetBrains Mono',monospace;}
+ .hero-cta-row{display:flex;gap:14px;align-items:center;justify-content:center;flex-wrap:wrap;}
+ .hero-cta-row .btn{padding:14px 30px;border-radius:100px;font-size:14.5px;}
+ .hero-cta-row .btn.outline{background:transparent;border:1px solid rgba(255,255,255,0.75);color:#fff;}
+ .hero-cta-row .btn.outline:hover{background:#fff;color:var(--navy-deep);}
+ .hero-cta-row .btn.solid{background:var(--navy);border-color:var(--navy);}
+ .hero-cta-row .btn.solid:hover{background:#0f4694;border-color:#0f4694;}
 
- .stat-strip{
- position:relative;
- border-top:1px solid rgba(255,255,255,0.14);
- display:grid;grid-template-columns:repeat(4,1fr);
+ /* ===== MARQUEE (soft rounded inset strip, quiet typography) ===== */
+ .marquee-sec{padding:20px 24px 0;}
+ .marquee-sec-inner{
+ max-width:var(--maxw);margin:0 auto;
+ background:var(--paper);border:1px solid var(--line);border-radius:16px;
+ padding:22px 0;overflow:hidden;
  }
- .stat{
- padding:26px 32px;border-right:1px solid rgba(255,255,255,0.14);
- }
- .stat:last-child{border-right:none;}
- .stat .num{font-family:'Oswald',sans-serif;font-size:32px;font-weight:600;color:#fff;}
- .stat .lbl{font-size:12.5px;color:#9fb3d6;margin-top:4px;font-family:'JetBrains Mono',monospace;letter-spacing:0.03em;}
-
- /* ===== MARQUEE ===== */
- .marquee-sec{background:var(--paper);border-bottom:1px solid var(--line);padding:22px 0;overflow:hidden;}
- .marquee-track{display:flex;gap:56px;width:max-content;animation:scroll 34s linear infinite;}
+ .marquee-track{display:flex;align-items:center;gap:0;width:max-content;animation:scroll 32s linear infinite;}
  .marquee-track span{
- font-family:'Oswald',sans-serif;font-size:19px;color:var(--steel);letter-spacing:0.02em;
- text-transform:uppercase;white-space:nowrap;
+ font-family:'Inter',sans-serif;font-size:15.5px;font-weight:600;color:var(--steel);letter-spacing:0.01em;
+ white-space:nowrap;padding:0 26px;position:relative;
+ }
+ .marquee-track span:not(:first-child)::before{
+ content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);
+ width:1px;height:14px;background:var(--line-strong);
  }
  @keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 
@@ -152,107 +202,148 @@
  .section-head h2{font-size:clamp(30px,3.6vw,44px);max-width:640px;line-height:1.08;}
  .section-head .desc{max-width:380px;color:var(--muted);font-size:15px;line-height:1.55;}
 
- /* ===== CALCULATOR ===== */
- .calc{background:var(--paper);}
+ /* ===== CALCULATOR (Intercom-style: light panel + underline fields + live numbers) ===== */
+ .calc{background:#fff;}
  .calc-panel{
- background:#fff;border:1px solid var(--line);border-radius:4px;
- display:grid;grid-template-columns:1.1fr 0.9fr;overflow:hidden;
+ background:#eef4fc;border-radius:16px;overflow:hidden;
+ display:grid;grid-template-columns:1fr 1fr;
  }
- .calc-form{padding:44px;}
- .field-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px;}
- .field{display:flex;flex-direction:column;gap:6px;}
- .field label{font-size:12px;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);}
+ .calc-form{padding:48px;}
+ .calc-form h3{font-family:'Inter',sans-serif;text-transform:none;font-size:22px;font-weight:700;color:var(--navy-deep);margin-bottom:28px;line-height:1.3;}
+ .field-row{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:22px;}
+ .field{display:flex;flex-direction:column;gap:8px;}
+ .field label{font-size:13px;color:var(--muted);font-weight:500;}
  .field select, .field input{
- border:1px solid var(--line-strong);border-radius:2px;padding:12px 14px;font-size:14.5px;
- font-family:'Inter',sans-serif;color:var(--ink);background:#fff;
+ border:none;border-bottom:1.5px solid #b9cbe4;border-radius:0;padding:9px 2px;font-size:15px;
+ font-family:'Inter',sans-serif;color:var(--ink);background:transparent;
  }
- .field select:focus, .field input:focus{outline:2px solid var(--navy-soft);outline-offset:-1px;border-color:var(--navy);}
- .calc-form .btn{width:100%;margin-top:8px;padding:15px;font-size:15px;}
+ .field select:focus, .field input:focus{outline:none;border-color:var(--navy);}
+ .field select::placeholder, .field input::placeholder{color:#93a5c2;}
+ .calc-form .btn{margin-top:10px;padding:14px 30px;font-size:14.5px;border-radius:100px;}
  .calc-side{
- background:var(--navy-deep);color:#fff;padding:44px;
- display:flex;flex-direction:column;justify-content:center;gap:22px;
- background-image:radial-gradient(circle at 85% 20%, rgba(255,255,255,0.06), transparent 55%);
+ background:#fff;padding:48px;
+ display:flex;flex-direction:column;justify-content:center;gap:30px;
  }
- .calc-side .code{font-family:'JetBrains Mono',monospace;font-size:12px;color:#8fb3e8;letter-spacing:0.1em;text-transform:uppercase;}
- .calc-side h3{color:#fff;font-size:24px;line-height:1.25;}
- .calc-side p{color:#b7c6e2;font-size:14px;line-height:1.6;margin:0;}
- .calc-side ul{display:flex;flex-direction:column;gap:12px;margin-top:6px;}
- .calc-side li{font-size:13.5px;color:#dbe4f4;display:flex;gap:10px;align-items:flex-start;}
- .calc-side li::before{content:"—";color:#8fb3e8;flex-shrink:0;}
+ .calc-stat-row{border-top:1px solid var(--line);padding-top:20px;}
+ .calc-stat-row:first-child{border-top:none;padding-top:0;}
+ .calc-stat-row .lbl{font-size:14px;color:var(--muted);display:flex;align-items:center;gap:6px;margin-bottom:6px;}
+ .calc-stat-row .val{font-family:'Oswald',sans-serif;font-size:40px;font-weight:600;color:var(--navy-deep);line-height:1;transition:color .2s;}
+ .calc-stat-row .val.live{color:var(--navy);}
 
- /* ===== SERVICES ===== */
- .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+ /* ===== SERVICES (compact: 4-col grid, smaller cards) ===== */
+ .svc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
  .svc-card{
- background:#fff;padding:28px 26px;position:relative;
- display:flex;flex-direction:column;gap:14px;
+ background:#fff;padding:20px;position:relative;
+ border:1.5px solid var(--line-strong);border-radius:14px;
+ display:flex;flex-direction:column;gap:10px;
+ transition:border-color .2s, box-shadow .2s;
+ cursor:pointer;
  }
- .svc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
- .svc-code{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--steel);letter-spacing:0.06em;}
- .svc-price{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--navy);font-weight:700;white-space:nowrap;background:var(--paper);padding:4px 9px;border-radius:2px;}
- .svc-card h4{font-size:18px;text-transform:none;color:var(--ink);font-weight:600;font-family:'Inter',sans-serif;line-height:1.3;letter-spacing:0;}
- .svc-excerpt{font-size:13.5px;color:var(--muted);line-height:1.55;flex-grow:1;}
- .svc-full{
- font-size:13.5px;color:var(--muted);line-height:1.65;
- max-height:0;overflow:hidden;transition:max-height .35s ease;
+ .svc-card:hover{border-color:var(--navy); box-shadow:0 8px 24px rgba(0,51,117,0.08);}
+ .svc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;}
+ .svc-code{
+ font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--navy);letter-spacing:0.04em;
+ background:var(--paper);border-radius:6px;padding:4px 7px;
  }
- .svc-full p{margin:0 0 12px;}
- .svc-full p:last-child{margin-bottom:0;}
+ .svc-price-big{display:flex;align-items:baseline;gap:5px;}
+ .svc-price-big .from{font-size:12px;color:var(--muted);}
+ .svc-price-big .num{font-family:'Oswald',sans-serif;font-size:24px;font-weight:600;color:var(--navy-deep);line-height:1;}
+ .svc-price-big .cur{font-size:13px;color:var(--muted);}
+ .svc-card h4{font-size:14.5px;text-transform:none;color:var(--ink);font-weight:700;font-family:'Inter',sans-serif;line-height:1.3;letter-spacing:0;}
  .svc-toggle{
- display:flex;align-items:center;gap:8px;
- font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:0.06em;text-transform:uppercase;
- color:var(--navy);font-weight:600;background:none;border:none;padding:0;align-self:flex-start;
+ display:flex;align-items:center;gap:6px;
+ font-size:12px;font-weight:600;
+ color:var(--navy);background:none;border:none;padding:0;align-self:flex-start;margin-top:auto;
  }
- .svc-toggle .arrow{transition:transform .25s ease;font-size:13px;}
- .svc-card.open .svc-toggle .arrow{transform:rotate(180deg);}
- .svc-card.open .svc-full{max-height:900px;}
- .svc-card::before{
- content:"";position:absolute;top:0;left:0;width:100%;height:2px;background:transparent;transition:background .2s;
- }
- .svc-card:hover::before{background:var(--navy);}
- .svc-cta-row{margin-top:60px;text-align:center;}
+ .svc-toggle .arrow{font-size:12px;}
+ .svc-cta-row{margin-top:44px;text-align:center;}
  .svc-cta-row p{color:var(--muted);font-size:14px;margin-bottom:18px;}
 
- /* ===== ADVANTAGES ===== */
- .adv{background:var(--navy-deep);color:#fff;}
- .adv .section-head h2{color:#fff;}
- .adv .section-head .desc{color:#9fb3d6;}
- .adv .eyebrow{color:#8fb3e8;}
- .adv .eyebrow::before{background:#8fb3e8;}
- .adv-grid{display:grid;grid-template-columns:1.1fr 0.9fr 0.9fr;grid-template-rows:auto auto;gap:1px;background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.14);}
- .adv-cell{background:var(--navy-deep);padding:34px;display:flex;flex-direction:column;justify-content:space-between;gap:16px;}
- .adv-cell.photo{
- background:url('https://images.unsplash.com/photo-1632823471565-1ecdf7c8e1ce?q=80&w=1200&auto=format&fit=crop') center/cover;
- grid-row:span 2;min-height:340px;position:relative;
+ /* ===== SERVICE MODAL (opens near top of screen) ===== */
+ .svc-modal-overlay{
+ position:fixed;inset:0;background:rgba(0,20,48,0.5);
+ display:none;align-items:flex-start;justify-content:center;
+ padding:80px 20px 20px;z-index:200;overflow-y:auto;
  }
- .adv-cell.photo::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg, rgba(0,28,64,0.92), rgba(0,28,64,0.15));}
- .adv-cell.photo .adv-photo-cap{position:relative;color:#fff;margin-top:auto;}
- .adv-cell.photo .adv-photo-cap h4{color:#fff;font-family:'Oswald',sans-serif;text-transform:uppercase;font-size:19px;margin-bottom:8px;}
- .adv-cell.photo .adv-photo-cap p{color:#c7d3ea;font-size:13.5px;line-height:1.5;margin:0;}
- .adv-cell .code{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#7f9bd0;letter-spacing:0.08em;}
- .adv-cell .num{font-family:'Oswald',sans-serif;font-size:52px;font-weight:600;color:#fff;line-height:1;}
- .adv-cell h4{font-family:'Oswald',sans-serif;text-transform:uppercase;font-size:20px;color:#fff;letter-spacing:0.01em;}
- .adv-cell p{font-size:13.5px;color:#b7c6e2;line-height:1.55;margin:0;}
+ .svc-modal-overlay.open{display:flex;}
+ .svc-modal{
+ background:#fff;border-radius:20px;max-width:560px;width:100%;
+ padding:36px;position:relative;
+ box-shadow:0 30px 60px rgba(0,20,48,0.3);
+ animation:modalIn .2s ease;
+ }
+ @keyframes modalIn{from{opacity:0;transform:translateY(-12px);}to{opacity:1;transform:translateY(0);}}
+ .svc-modal-close{
+ position:absolute;top:20px;right:20px;width:32px;height:32px;border-radius:50%;
+ border:1px solid var(--line-strong);background:#fff;color:var(--muted);
+ font-size:16px;display:flex;align-items:center;justify-content:center;
+ cursor:pointer;
+ }
+ .svc-modal-close:hover{background:var(--paper);}
+ .svc-modal-code{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--navy);background:var(--paper);border-radius:6px;padding:4px 8px;display:inline-block;margin-bottom:14px;}
+ .svc-modal h3{font-size:22px;text-transform:none;font-family:'Inter',sans-serif;font-weight:700;color:var(--navy-deep);margin-bottom:6px;line-height:1.3;}
+ .svc-modal .svc-modal-price{font-family:'Oswald',sans-serif;font-size:22px;font-weight:600;color:var(--navy);margin-bottom:20px;}
+ .svc-modal .svc-modal-body{font-size:14.5px;color:var(--muted);line-height:1.7;max-height:50vh;overflow-y:auto;}
+ .svc-modal .svc-modal-body p{margin:0 0 14px;}
+ .svc-modal .svc-modal-body p:last-child{margin-bottom:0;}
+ .svc-modal .btn{margin-top:22px;width:100%;}
+
+ /* ===== ADVANTAGES (Homerun-style: gradient stat bar + dark panel below) ===== */
+ .adv{background:#fff;}
+ .adv .eyebrow{color:var(--navy);}
+ .adv-gradient-bar{
+ background:linear-gradient(120deg, var(--navy) 0%, #0f4694 55%, #2a67b8 100%);
+ border-radius:20px;padding:40px 44px;
+ display:grid;grid-template-columns:repeat(4,1fr);gap:24px;
+ margin-bottom:20px;
+ }
+ .adv-gradient-bar .g-stat .num{font-family:'Oswald',sans-serif;font-size:44px;font-weight:700;color:#fff;line-height:1;}
+ .adv-gradient-bar .g-stat .lbl{font-size:13.5px;color:#cfe0f7;margin-top:8px;}
 
  /* ===== REVIEWS ===== */
  .rev-grid{columns:3;column-gap:20px;}
  .rev-card{
  break-inside:avoid;margin-bottom:20px;background:var(--paper);border:1px solid var(--line);
- padding:24px;border-radius:3px;
+ padding:22px;border-radius:12px;
  }
- .rev-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
- .rev-name{font-weight:600;font-size:14.5px;color:var(--ink);}
- .rev-date{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--steel);}
+ .rev-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:10px;}
+ .rev-who{display:flex;align-items:center;gap:10px;}
+ .rev-avatar{
+ width:36px;height:36px;border-radius:50%;flex-shrink:0;
+ background:var(--navy);color:#fff;
+ display:flex;align-items:center;justify-content:center;
+ font-family:'Oswald',sans-serif;font-size:14px;font-weight:600;
+ }
+ .rev-name{font-weight:600;font-size:14px;color:var(--ink);}
+ .rev-date{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--steel);white-space:nowrap;}
  .rev-stars{color:var(--navy);font-size:13px;letter-spacing:2px;margin-bottom:10px;}
  .rev-text{font-size:13.5px;line-height:1.6;color:var(--muted);}
 
- /* ===== CTA BAND ===== */
- .cta-band{background:var(--navy);color:#fff;text-align:center;}
- .cta-band h2{color:#fff;font-size:clamp(28px,4vw,42px);max-width:680px;margin:0 auto 20px;}
- .cta-band p{color:#cfdcf1;font-size:15.5px;margin-bottom:32px;}
- .cta-band .btn-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+ /* ===== CTA BAND (Front-style: bold plaque, headline left / button right) ===== */
+ .cta-band{background:#fff;padding:0 0 100px;}
+ .cta-plaque{
+ background:var(--navy);border-radius:18px;padding:44px 48px;
+ display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;
+ }
+ .cta-plaque h2{color:#fff;font-size:clamp(22px,2.6vw,30px);text-transform:none;font-family:'Inter',sans-serif;font-weight:700;max-width:520px;margin:0;line-height:1.35;}
+ .cta-plaque .btn-row{display:flex;gap:12px;flex-wrap:wrap;}
 
  /* ===== FOOTER ===== */
- footer{background:var(--navy-deep);color:#c7d3ea;padding:72px 0 28px;}
+ footer{background:var(--navy-deep);color:#c7d3ea;padding:64px 0 28px;}
+ .foot-cta-pill{
+ display:block;text-align:center;background:#fff;color:var(--navy-deep);
+ border-radius:100px;padding:22px;font-family:'Oswald',sans-serif;text-transform:uppercase;
+ font-size:22px;font-weight:600;margin-bottom:14px;transition:background .15s;
+ }
+ .foot-cta-pill:hover{background:#dbe4f4;}
+ .foot-tiles{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:48px;}
+ .foot-tile{
+ border:1px solid rgba(255,255,255,0.16);border-radius:16px;padding:20px 24px;
+ display:flex;align-items:center;gap:12px;font-size:14.5px;color:#fff;font-weight:500;
+ transition:background .15s;
+ }
+ .foot-tile:hover{background:rgba(255,255,255,0.06);}
+ .foot-tile .ico{font-size:16px;}
  .foot-top{display:grid;grid-template-columns:1.1fr 1.4fr 0.9fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,0.12);}
  .foot-brand .logo{color:#fff;margin-bottom:16px;}
  .foot-brand p{font-size:13.5px;color:#8ea3c9;line-height:1.6;max-width:280px;}
@@ -274,82 +365,74 @@
  /* ===== responsive ===== */
  @media(max-width:980px){
  nav.primary{display:none;}
- .stat-strip{grid-template-columns:repeat(2,1fr);}
- .stat:nth-child(2){border-right:none;}
  .calc-panel{grid-template-columns:1fr;}
  .svc-grid{grid-template-columns:repeat(2,1fr);}
  .adv-grid{grid-template-columns:1fr 1fr;}
- .adv-cell.photo{grid-row:span 1;min-height:220px;}
+ .adv-gradient-bar{grid-template-columns:1fr 1fr;}
  .rev-grid{columns:2;}
  .foot-top{grid-template-columns:1fr;gap:36px;}
  .foot-brands{grid-template-columns:repeat(3,1fr);}
  }
  @media(max-width:640px){
  .wrap{padding:0 20px;}
- .topbar-locs{display:none;}
  .field-row{grid-template-columns:1fr;}
  .svc-grid{grid-template-columns:1fr;}
  .adv-grid{grid-template-columns:1fr;}
+ .adv-gradient-bar{grid-template-columns:1fr 1fr;}
  .rev-grid{columns:1;}
- .stat-strip{grid-template-columns:1fr 1fr;}
  .hero .wrap{padding:64px 20px 0;}
  section{padding:64px 0;}
+ .cta-plaque{flex-direction:column;align-items:flex-start;}
  }
 </style>
+<link rel="preload" as="image" href="https://karsto1.ru/wp-content/uploads/2023/05/logo-1.svg">
 </head>
 <body>
 
-<div class="topbar">
- <div class="wrap">
- <div class="topbar-locs">
- <div class="topbar-loc"><b>г. Москва</b><span>Проезд Добролюбова, 6а стр15 · м. Бутырская</span></div>
- <div class="topbar-loc"><b>г. Мытищи</b><span>Силикатная ул, 51к3 · м. Медведково</span></div>
- </div>
- <div class="topbar-phone">
- <a href="tel:+79253202111">+7 (925) 320-21-11</a>
- <span class="hours">пн–вс, 11:00–23:00</span>
- </div>
- </div>
+<div id="intro-loader">
+ <div id="intro-gradient-bg"></div>
+ <img id="intro-wordmark-big" src="https://karsto1.ru/wp-content/uploads/2023/05/logo-1.svg" alt="KARSTO1">
+ <div id="intro-flash"></div>
 </div>
+
+
 
 <header class="main">
  <div class="wrap">
- <div class="logo"><span class="dot"></span>KARSTO1</div>
+ <a href="#top" class="logo" onclick="event.preventDefault(); window.scrollTo({top:0,behavior:'smooth'});" style="cursor:pointer;"><img src="https://karsto1.ru/wp-content/uploads/2023/05/logo-1.svg" alt="KARSTO1" style="height:44px;display:block;"></a>
  <nav class="primary">
  <a href="#services">Услуги</a>
  <a href="#advantages">Преимущества</a>
  <a href="#reviews">Отзывы</a>
  <a href="#contacts">Контакты</a>
  </nav>
- <a href="#calc" class="btn">Запись на сервис</a>
+ <div class="header-right">
+ <div class="header-phone">
+ <a href="tel:+79253202111">+7 (925) 320-21-11</a>
+ <span>пн–вс, 11:00–23:00</span>
+ </div>
+ <a href="#calc" class="btn" style="border-radius:100px;">Запись на сервис</a>
+ </div>
  </div>
 </header>
 
-<section class="hero" style="padding-top:0;">
- <div class="hero-grid"></div>
- <div class="hero-photo"></div>
- <div class="hero-fade"></div>
- <div class="wrap">
- <div class="hero-tag">Диагностика · Ремонт · Гарантия 16 месяцев</div>
- <h1>Ремонт бензиновых и дизельных двигателей в Москве, Мытищах, Королёве и Пушкино</h1>
- <p class="lead">Диагностика, ремонт и восстановление двигателей любой сложности. Работаем на сертифицированном оборудовании — от замены помпы до капитального ремонта.</p>
+<section class="hero">
+ <div class="hero-photo">
+ <div class="hero-inner">
+ <div class="hero-tag">Москва · Мытищи · Королёв · Пушкино</div>
+ <h1>Ремонт двигателя без компромиссов.<br>Гарантия у нас — 16 месяцев.</h1>
  <div class="hero-cta-row">
- <a href="#calc" class="btn on-dark">Рассчитать стоимость ремонта</a>
- <a href="tel:+79253202111" class="hero-note">или позвоните: +7 (925) 320-21-11</a>
+ <a href="#calc" class="btn outline">Рассчитать стоимость</a>
+ <a href="tel:+79253202111" class="btn solid">Позвонить сейчас</a>
  </div>
- </div>
- <div class="stat-strip">
- <div class="wrap" style="display:contents;">
- <div class="stat"><div class="num">16 мес</div><div class="lbl">гарантия на услуги и запчасти</div></div>
- <div class="stat"><div class="num">5,0</div><div class="lbl">рейтинг на Яндекс Картах</div></div>
- <div class="stat"><div class="num">45%</div><div class="lbl">дешевле дилерского сервиса</div></div>
- <div class="stat"><div class="num">12+ лет</div><div class="lbl">опыт механиков сервиса</div></div>
  </div>
  </div>
 </section>
 
 <div class="marquee-sec">
+ <div class="marquee-sec-inner">
  <div class="marquee-track" id="marquee"></div>
+ </div>
 </div>
 
 <section class="calc" id="calc">
@@ -360,25 +443,46 @@
  <div class="desc">Укажите параметры автомобиля и опишите проблему — мы свяжемся с вами и назовём точную стоимость работ.</div>
  </div>
  <div class="calc-panel">
- <form class="calc-form" onsubmit="event.preventDefault(); this.closest('.calc-panel').querySelector('.calc-side').innerHTML='<div class=\'code\'>Заявка принята</div><h3>Спасибо! Мы скоро свяжемся с вами</h3><p>Мастер перезвонит в течение 15 минут в рабочее время сервиса.</p>';">
+ <form class="calc-form" id="calc-form" onsubmit="event.preventDefault(); document.getElementById('calc-submitted').style.display='block';">
+ <h3>Заполните параметры — справа сразу увидите ориентир по стоимости</h3>
  <div class="field-row">
  <div class="field">
  <label>Год выпуска</label>
- <select required><option value="">Выберите год</option><option>2023</option><option>2020</option><option>2015</option><option>2010</option><option>2005</option><option>2000 и ранее</option></select>
+ <select required>
+ <option value="">Выберите год</option>
+ <option>2023</option><option>2022</option><option>2021</option><option>2020</option><option>2019</option><option>2018</option><option>2017</option><option>2016</option><option>2015</option><option>2014</option><option>2013</option><option>2012</option><option>2011</option><option>2010</option><option>2009</option><option>2008</option><option>2007</option><option>2006</option><option>2005</option><option>2004</option><option>2003</option><option>2002</option><option>2001</option><option>2000</option><option>1999</option><option>1998</option><option>1997</option><option>1996</option><option>1995</option><option>1994</option><option>1993</option><option>1992</option><option>1991</option><option>1990</option>
+ </select>
  </div>
  <div class="field">
- <label>Тип двигателя</label>
- <select required><option value="">Выберите тип</option><option>Бензиновый двигатель</option><option>Дизельный двигатель</option></select>
+ <label>Марка/Модель</label>
+ <input type="text" placeholder="Например: Volkswagen Touareg">
  </div>
  </div>
  <div class="field-row">
  <div class="field">
+ <label>Тип двигателя</label>
+ <select required>
+ <option value="">Выберите тип</option>
+ <option>Бензиновый двигатель</option>
+ <option>Дизельный двигатель</option>
+ </select>
+ </div>
+ <div class="field">
  <label>Объём двигателя</label>
- <select required><option value="">Выберите объём, л</option><option>1.4</option><option>1.6</option><option>2.0</option><option>2.5</option><option>3.0</option><option>3.5+</option></select>
+ <select required>
+ <option value="">Выберите объём, л</option>
+ <option>0.7</option><option>0.8</option><option>0.9</option><option>1.0</option><option>1.1</option><option>1.2</option><option>1.3</option><option>1.4</option><option>1.5</option><option>1.6</option><option>1.7</option><option>1.8</option><option>1.9</option><option>2.0</option><option>2.1</option><option>2.2</option><option>2.3</option><option>2.4</option><option>2.5</option><option>2.6</option><option>2.7</option><option>2.8</option><option>2.9</option><option>3.0</option><option>3.1</option><option>3.2</option><option>3.3</option><option>3.4</option><option>3.5</option><option>3.6</option><option>3.7</option><option>3.8</option><option>3.9</option><option>4.0</option><option>4.1</option><option>4.2</option><option>4.3</option><option>4.4</option><option>4.5</option><option>4.6</option><option>4.7</option><option>4.8</option><option>4.9</option><option>5.0</option><option>5.1</option><option>5.2</option><option>5.3</option><option>5.4</option><option>5.5</option><option>5.6</option><option>5.7</option><option>5.8</option><option>5.9</option><option>6.0</option>
+ </select>
+ </div>
+ </div>
+ <div class="field-row">
+ <div class="field">
+ <label>Количество цилиндров</label>
+ <input type="text" placeholder="Например: 4">
  </div>
  <div class="field">
  <label>Неисправность</label>
- <input type="text" placeholder="Кратко опишите проблему">
+ <input type="text" id="calc-issue" placeholder="Например: перегрев, стук, дымит">
  </div>
  </div>
  <div class="field-row">
@@ -392,16 +496,22 @@
  </div>
  </div>
  <button class="btn" type="submit">Отправить заявку</button>
+ <div style="font-size:12px;color:var(--muted);margin-top:12px;line-height:1.5;">Отправляя форму, вы соглашаетесь с <a href="#" style="color:var(--navy);text-decoration:underline;">политикой конфиденциальности</a> и правилами сайта</div>
+ <div id="calc-submitted" style="display:none;margin-top:14px;font-size:13.5px;color:var(--ok);font-weight:600;">✓ Заявка принята — мы перезвоним в течение 15 минут</div>
  </form>
  <div class="calc-side">
- <div class="code">// diagnostics</div>
- <h3>Точную цену назовём после диагностики</h3>
- <p>Стоимость зависит от марки, объёма и типа двигателя, а также от характера неисправности.</p>
- <ul>
- <li>Диагностика на сертифицированном оборудовании</li>
- <li>Прозрачная смета до начала работ</li>
- <li>Гарантия 16 месяцев на все услуги и запчасти</li>
- </ul>
+ <div class="calc-stat-row">
+ <div class="lbl">Ориентировочная стоимость</div>
+ <div class="val live" id="calc-price">от 8 000 ₽</div>
+ </div>
+ <div class="calc-stat-row">
+ <div class="lbl">Гарантия на работы и запчасти</div>
+ <div class="val">16 мес</div>
+ </div>
+ <div class="calc-stat-row">
+ <div class="lbl">Ответим на заявку в течение</div>
+ <div class="val">15 мин</div>
+ </div>
  </div>
  </div>
  </div>
@@ -422,6 +532,17 @@
  </div>
 </section>
 
+<div class="svc-modal-overlay" id="svc-modal-overlay" onclick="if(event.target===this) closeSvcModal();">
+ <div class="svc-modal">
+ <button class="svc-modal-close" onclick="closeSvcModal();">✕</button>
+ <div class="svc-modal-code" id="svc-modal-code"></div>
+ <h3 id="svc-modal-title"></h3>
+ <div class="svc-modal-price" id="svc-modal-price"></div>
+ <div class="svc-modal-body" id="svc-modal-body"></div>
+ <a href="#calc" class="btn" onclick="closeSvcModal();">Записаться на эту услугу</a>
+ </div>
+</div>
+
 <section class="adv" id="advantages">
  <div class="wrap">
  <div class="eyebrow">Почему KARSTO1</div>
@@ -429,33 +550,12 @@
  <h2>Преимущества сервиса</h2>
  <div class="desc">Индивидуальный подход к каждому клиенту с учётом особенностей его автомобиля.</div>
  </div>
- <div class="adv-grid">
- <div class="adv-cell photo">
- <div class="adv-photo-cap">
- <h4>Квалифицированные механики</h4>
- <p>Ремонт выполняют мастера со стажем от 12 лет — с большим опытом работы с разными марками автомобилей.</p>
- </div>
- </div>
- <div class="adv-cell">
- <div class="code">// rating</div>
- <div class="num">5,0</div>
- <p>Рейтинг сервиса на Яндекс Картах — по отзывам реальных клиентов.</p>
- </div>
- <div class="adv-cell">
- <div class="code">// speed</div>
- <h4>Быстрый ремонт</h4>
- <p>Экономим ваше время — быстро диагностируем и ремонтируем, чтобы вы скорее вернулись к своим делам.</p>
- </div>
- <div class="adv-cell">
- <div class="code">// warranty</div>
- <h4>Гарантия качества</h4>
- <p>Пока вы ждёте — удобный диван, кофемашина и тёплая зона ожидания.</p>
- </div>
- <div class="adv-cell">
- <div class="code">// price</div>
- <div class="num">–45%</div>
- <p>Дешевле дилерского техцентра при том же уровне качества и сервиса.</p>
- </div>
+
+ <div class="adv-gradient-bar">
+ <div class="g-stat"><div class="num">5,0</div><div class="lbl">рейтинг на Яндекс Картах</div></div>
+ <div class="g-stat"><div class="num">16 мес</div><div class="lbl">гарантия на услуги и запчасти</div></div>
+ <div class="g-stat"><div class="num">–45%</div><div class="lbl">дешевле дилерского техцентра</div></div>
+ <div class="g-stat"><div class="num">12+ лет</div><div class="lbl">средний стаж механиков</div></div>
  </div>
  </div>
 </section>
@@ -473,20 +573,26 @@
 
 <section class="cta-band">
  <div class="wrap">
- <h2>Двигатель барахлит? Не тяните с диагностикой</h2>
- <p>Позвоните нам или оставьте заявку — подскажем, что делать, и назовём стоимость ремонта.</p>
+ <div class="cta-plaque">
+ <h2>Двигатель барахлит? Не тяните с диагностикой — позвоните или оставьте заявку.</h2>
  <div class="btn-row">
- <a href="tel:+79253202111" class="btn on-dark">+7 (925) 320-21-11</a>
- <a href="#calc" class="btn ghost" style="border-color:#fff;color:#fff;">Оставить заявку</a>
+ <a href="tel:+79253202111" class="btn on-dark" style="border-radius:100px;">+7 (925) 320-21-11</a>
+ <a href="#calc" class="btn ghost" style="border-radius:100px;border-color:rgba(255,255,255,0.4);color:#fff;">Оставить заявку</a>
+ </div>
  </div>
  </div>
 </section>
 
 <footer id="contacts">
  <div class="wrap">
+ <a href="tel:+79253202111" class="foot-cta-pill">Позвонить: +7 (925) 320-21-11</a>
+ <div class="foot-tiles">
+ <a href="mailto:karsto1@yandex.ru" class="foot-tile"><span class="ico">✉</span> karsto1@yandex.ru</a>
+ <a href="#calc" class="foot-tile"><span class="ico">→</span> Оставить заявку на сайте</a>
+ </div>
  <div class="foot-top">
  <div class="foot-brand">
- <div class="logo"><span class="dot"></span>KARSTO1</div>
+ <a href="#top" class="logo" onclick="event.preventDefault(); window.scrollTo({top:0,behavior:'smooth'});" style="cursor:pointer;"><img src="https://karsto1.ru/wp-content/uploads/2023/05/logo-1.svg" alt="KARSTO1" style="height:34px;display:block;filter:brightness(0) invert(1);"></a>
  <p>Ремонт и восстановление бензиновых и дизельных двигателей любой сложности. На рынке с 2015 года.</p>
  <div class="foot-contacts">
  <a href="tel:+79253202111">+7 (925) 320-21-11</a>
@@ -524,6 +630,20 @@
 </footer>
 
 <script>
+const introLoader = document.getElementById('intro-loader');
+if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+ introLoader.remove();
+} else {
+ document.body.classList.add('intro-lock');
+ window.addEventListener('load', () => {
+ setTimeout(() => {
+ introLoader.classList.add('hide');
+ document.body.classList.remove('intro-lock');
+ setTimeout(() => introLoader.remove(), 550);
+ }, 1600);
+ });
+}
+
 const brands = ["Audi","BMW","Cadillac","Chevrolet","Ford","Hyundai","Infiniti","Kia","Lexus","Mazda","Mercedes","Mini","Mitsubishi","Nissan","Porsche","Skoda","Toyota","Volkswagen","Volvo"];
 
 const marquee = document.getElementById('marquee');
@@ -622,20 +742,38 @@ const services = [
 ];
 
 const svcGrid = document.getElementById('svc-grid');
-svcGrid.innerHTML = services.map((s,i) => `
- <div class="svc-card" id="svc-${i}">
+svcGrid.innerHTML = services.map((s,i) => {
+ const m = s.price.match(/от ([\d\s]+) (.+)/);
+ const num = m ? m[1] : s.price;
+ const cur = m ? m[2] : '';
+ return `
+ <div class="svc-card" id="svc-${i}" onclick="openSvcModal(${i})">
  <div class="svc-top">
  <span class="svc-code">${s.code}</span>
- <span class="svc-price mono">${s.price}</span>
  </div>
+ <div class="svc-price-big"><span class="from">от</span><span class="num">${num}</span><span class="cur">${cur}</span></div>
  <h4>${s.title}</h4>
- <p class="svc-excerpt">${s.excerpt}</p>
- <div class="svc-full">${s.full.map(p=>`<p>${p}</p>`).join('')}</div>
- <button class="svc-toggle" onclick="document.getElementById('svc-${i}').classList.toggle('open')">
- Подробнее <span class="arrow">▾</span>
- </button>
+ <span class="svc-toggle">
+ Подробнее <span class="arrow">→</span>
+ </span>
  </div>
-`).join('');
+`;
+}).join('');
+
+function openSvcModal(i){
+ const s = services[i];
+ document.getElementById('svc-modal-code').textContent = s.code;
+ document.getElementById('svc-modal-title').textContent = s.title;
+ document.getElementById('svc-modal-price').textContent = s.price;
+ document.getElementById('svc-modal-body').innerHTML = s.full.map(p=>`<p>${p}</p>`).join('');
+ document.getElementById('svc-modal-overlay').classList.add('open');
+ document.body.style.overflow = 'hidden';
+}
+function closeSvcModal(){
+ document.getElementById('svc-modal-overlay').classList.remove('open');
+ document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeSvcModal(); });
 
 const reviews = [
  {name:"Анатолий", date:"01 апреля 2026", stars:5, text:"Уже много лет обслуживаю свои автомобили только в этом автосервисе у Карена. Всё делают аккуратно и на совесть, ничего лишнего не предлагают. За все годы ни разу не было нареканий."},
@@ -652,11 +790,52 @@ const reviews = [
 const revGrid = document.getElementById('rev-grid');
 revGrid.innerHTML = reviews.map(r => `
  <div class="rev-card">
- <div class="rev-top"><span class="rev-name">${r.name}</span><span class="rev-date mono">${r.date}</span></div>
+ <div class="rev-top">
+ <div class="rev-who">
+ <div class="rev-avatar">${r.name.trim()[0]}</div>
+ <span class="rev-name">${r.name}</span>
+ </div>
+ <span class="rev-date mono">${r.date}</span>
+ </div>
  <div class="rev-stars">${'★'.repeat(r.stars)}</div>
  <div class="rev-text">${r.text}</div>
  </div>
 `).join('');
+
+const keywordMap = [
+ {kw:["перегрев"], price:"от 25 000 ₽"},
+ {kw:["стук","поршн"], price:"от 10 000 ₽"},
+ {kw:["дым","колпач"], price:"от 8 000 ₽"},
+ {kw:["течёт","течет","прокладк"], price:"от 5 500 ₽"},
+ {kw:["не заводится","свеч"], price:"от 1 500 ₽"},
+ {kw:["шум","гидроопор","вибрац"], price:"от 1 300 ₽"},
+ {kw:["турбин"], price:"от 3 500 ₽"},
+ {kw:["тнвд","форсунк"], price:"от 4 000 ₽"},
+ {kw:["термостат"], price:"от 1 000 ₽"},
+ {kw:["капитал"], price:"от 30 000 ₽"}
+];
+const calcIssue = document.getElementById('calc-issue');
+const calcPrice = document.getElementById('calc-price');
+calcIssue.addEventListener('input', () => {
+ const v = calcIssue.value.trim().toLowerCase();
+ if(!v){ calcPrice.textContent = 'от 8 000 ₽'; return; }
+ const match = keywordMap.find(m => m.kw.some(k => v.includes(k)));
+ calcPrice.textContent = match ? match.price : 'уточним на диагностике';
+});
+
+if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+ const revealTargets = document.querySelectorAll('.section-head, .calc-panel, .svc-grid, .adv-gradient-bar, .rev-grid, .cta-plaque');
+ revealTargets.forEach(el => el.classList.add('reveal'));
+ const io = new IntersectionObserver((entries) => {
+ entries.forEach(entry => {
+ if(entry.isIntersecting){
+ entry.target.classList.add('reveal-in');
+ io.unobserve(entry.target);
+ }
+ });
+ }, {threshold:0.12, rootMargin:'0px 0px -60px 0px'});
+ revealTargets.forEach(el => io.observe(el));
+}
 </script>
 </body>
 </html>
